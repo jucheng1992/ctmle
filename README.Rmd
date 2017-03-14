@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Collaborative Targeted Maximum Likelihood Estimation (C-TMLE)
+# Collaborative Targeted Maximum Likelihood Estimation 
 
 ## C-TMLE for variable selection
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 We first generate some code for later showcases.
 
-```{r}
+```{r,eval=FALSE}
 library(ctmle)
 N <- 1000
 p = 10
@@ -42,7 +42,7 @@ Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 
 Here is some examples on discrete C-TMLE for variable selection, with greedy selection and pre-ordering option.
 
-```{r}
+```{r,eval=FALSE}
 
 time_greedy <- system.time(
 ctmle_discrete_fit1 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,
@@ -51,7 +51,6 @@ ctmle_discrete_fit1 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,
 ctmle_discrete_fit2 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat),
                                      preOrder = FALSE, detailed = TRUE)
 
-ctmle_discrete_fit2$candidates
 
 time_preorder <- system.time(
 ctmle_discrete_fit3 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,

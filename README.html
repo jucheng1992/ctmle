@@ -26,23 +26,10 @@ body {
 <body>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<h1 id="collaborative-targeted-maximum-likelihood-estimation-c-tmle">Collaborative Targeted Maximum Likelihood Estimation (C-TMLE)</h1>
+<h1 id="collaborative-targeted-maximum-likelihood-estimation">Collaborative Targeted Maximum Likelihood Estimation</h1>
 <h2 id="c-tmle-for-variable-selection">C-TMLE for variable selection</h2>
 <p>We first generate some code for later showcases.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ctmle)
-<span class="co">#&gt; Loading required package: SuperLearner</span>
-<span class="co">#&gt; Loading required package: nnls</span>
-<span class="co">#&gt; Super Learner</span>
-<span class="co">#&gt; Version: 2.0-21</span>
-<span class="co">#&gt; Package created on 2016-11-11</span>
-<span class="co">#&gt; Loading required package: tmle</span>
-<span class="co">#&gt; Welcome to the tmle package, version 1.2.0-5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Use tmleNews() to see details on changes and bug fixes</span>
-<span class="co">#&gt; Loading required package: glmnet</span>
-<span class="co">#&gt; Loading required package: Matrix</span>
-<span class="co">#&gt; Loading required package: foreach</span>
-<span class="co">#&gt; Loaded glmnet 2.0-5</span>
 N &lt;-<span class="st"> </span><span class="dv">1000</span>
 p =<span class="st"> </span><span class="dv">10</span>
 Wmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N *<span class="st"> </span>p), <span class="dt">ncol =</span> p)
@@ -69,56 +56,6 @@ ctmle_discrete_fit1 &lt;-<span class="st"> </span><span class="kw">ctmleDiscrete
 ctmle_discrete_fit2 &lt;-<span class="st"> </span><span class="kw">ctmleDiscrete</span>(<span class="dt">Y =</span> Y, <span class="dt">A =</span> A, <span class="dt">W =</span> <span class="kw">data.frame</span>(Wmat),
                                      <span class="dt">preOrder =</span> <span class="ot">FALSE</span>, <span class="dt">detailed =</span> <span class="ot">TRUE</span>)
 
-ctmle_discrete_fit2$candidates
-<span class="co">#&gt; $candidates</span>
-<span class="co">#&gt; $candidates$terms</span>
-<span class="co">#&gt;  [1] &quot;1&quot;   &quot;X7&quot;  &quot;X3&quot;  &quot;X8&quot;  &quot;X6&quot;  &quot;X5&quot;  &quot;X10&quot; &quot;X9&quot;  &quot;X4&quot;  &quot;X2&quot;  &quot;X1&quot; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $candidates$covar</span>
-<span class="co">#&gt;  [1] 1 1 2 2 3 4 5 6 7 8 9</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $candidates$epsilon</span>
-<span class="co">#&gt; Tx$h[, &quot;hAW&quot;]                                                         </span>
-<span class="co">#&gt;  6.987164e-04  7.752665e-04 -4.612903e-05 -7.287867e-05 -1.236389e-04 </span>
-<span class="co">#&gt;                                                                       </span>
-<span class="co">#&gt; -2.236605e-05 -5.377358e-05  2.395094e-06  1.947543e-05  1.866394e-04 </span>
-<span class="co">#&gt;               </span>
-<span class="co">#&gt;  6.002121e-05 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $candidates$earlyStop</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all</span>
-<span class="co">#&gt; $results.all$est</span>
-<span class="co">#&gt;  [1] 1.988054 1.990549 1.989122 1.988294 1.984429 1.983729 1.982037</span>
-<span class="co">#&gt;  [8] 1.982113 1.982734 1.988911 1.990944</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all$likelihood</span>
-<span class="co">#&gt;  [1] 0.9632404 0.9632261 0.9632256 0.9632249 0.9632201 0.9632197 0.9632183</span>
-<span class="co">#&gt;  [8] 0.9632183 0.9632185 0.9632132 0.9632138</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all$varDstar</span>
-<span class="co">#&gt;  [1] 0.003871799 0.003824677 0.003816245 0.003809873 0.003826331</span>
-<span class="co">#&gt;  [6] 0.003838100 0.003860491 0.003893353 0.003963457 0.004063018</span>
-<span class="co">#&gt; [11] 0.004187879</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all$varIC</span>
-<span class="co">#&gt;  [1] 0.003871799 0.003823223 0.003814907 0.003806124 0.003822576</span>
-<span class="co">#&gt;  [6] 0.003834103 0.003853560 0.003887060 0.003957072 0.004051785</span>
-<span class="co">#&gt; [11] 0.004168582</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all$varIC_origscale</span>
-<span class="co">#&gt;  [1] 4.250123 4.196800 4.187672 4.178031 4.196090 4.208744 4.230101</span>
-<span class="co">#&gt;  [8] 4.266875 4.343728 4.447696 4.575906</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $results.all$varDstar_origscale</span>
-<span class="co">#&gt;  [1] 4.250123 4.198396 4.189141 4.182146 4.200212 4.213131 4.237710</span>
-<span class="co">#&gt;  [8] 4.273783 4.350737 4.460027 4.597088</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $terms</span>
-<span class="co">#&gt;  [1] &quot;1&quot;   &quot;X7&quot;  &quot;X3&quot;  &quot;X8&quot;  &quot;X6&quot;  &quot;X5&quot;  &quot;X10&quot; &quot;X9&quot;  &quot;X4&quot;  &quot;X2&quot;  &quot;X1&quot;</span>
 
 time_preorder &lt;-<span class="st"> </span><span class="kw">system.time</span>(
 ctmle_discrete_fit3 &lt;-<span class="st"> </span><span class="kw">ctmleDiscrete</span>(<span class="dt">Y =</span> Y, <span class="dt">A =</span> A, <span class="dt">W =</span> <span class="kw">data.frame</span>(Wmat), <span class="dt">Q =</span> Q,
