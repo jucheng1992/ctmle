@@ -1,0 +1,21 @@
+Package: ctmle
+Type: Package
+Title: Collaborative Targeted Maximum Likelihood Etimation
+Version: 0.1
+Date: 2017-03-11
+Authors@R: c(person("Cheng", "Ju", email = "jucheng1992@gmail.com", role = c("aut", "cre")),person("Susan", "Gruber", role = c("aut")),person("Richard", "Wyss", role = c("ctb")),person("Jenny","Haggstrom", role = c("ctb")),person("Mark", "van der Laan", role = c("aut", "ths")))
+Maintainer: Cheng Ju <jucheng1992@gmail.com>
+Description: This package offers general template for Collaborative Targeted Maximum Likelihood Etimation. It also provides several concrete instantiation (discrete C-TMLE and glmnet C-TMLE) of the general template.
+License: GPL-2
+Depends:
+  R (>= 2.14.0),
+  SuperLearner,
+  tmle,
+  glmnet,
+  stats
+Imports:
+Suggests:
+  testthat
+LazyLoad: yes
+RoxygenNote: 6.0.1
+
