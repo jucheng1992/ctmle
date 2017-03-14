@@ -4,6 +4,10 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# Collaborative Targeted Maximum Likelihood Estimation (C-TMLE)
+
+## C-TMLE for variable selection
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -15,6 +19,7 @@ knitr::opts_chunk$set(
 We first generate some code for later showcases.
 
 ```{r}
+library(ctmle)
 N <- 1000
 p = 10
 Wmat <- matrix(rnorm(N * p), ncol = p)
@@ -29,6 +34,9 @@ A <- rbinom(N, 1, prob = g)
 
 epsilon <-rnorm(N, 0, 1)
 Y  <- beta0 + tau * A + epsilon
+
+# With initial estimate of Q
+Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 ```
 
 
@@ -36,4 +44,26 @@ Here is some examples on discrete C-TMLE for variable selection, with greedy sel
 
 ```{r}
 
+time_greedy <- system.time(
+ctmle_discrete_fit1 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,
+                                     preOrder = FALSE)
+)
+ctmle_discrete_fit2 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat),
+                                     preOrder = FALSE, detailed = TRUE)
+
+ctmle_discrete_fit2$candidates
+
+time_preorder <- system.time(
+ctmle_discrete_fit3 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,
+                                     preOrder = TRUE,
+                                     order = rev(1:p), detailed = TRUE)
+)
+
 ```
+
+
+## C-TMLE for model selection of LASSO
+
+
+
+## Advanced topic: the general template of C-TMLE
