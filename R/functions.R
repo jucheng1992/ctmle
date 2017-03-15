@@ -1,12 +1,3 @@
-#---------- function bound ---------------
-# set outliers to min/max allowable values
-# assumes x contains only numerical data
-#-----------------------------------------
-bound <- function(x, bounds){
-      x[x<min(bounds)] <- min(bounds)
-      x[x>max(bounds)] <- max(bounds)
-      return(x)
-}
 
 #---------- function Tx_mech -------
 # purpose: calculate h and g1W given a model for g and
