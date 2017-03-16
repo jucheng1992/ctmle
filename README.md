@@ -46,10 +46,10 @@ library(ctmle)
 set.seed(123)
 
 N <- 1000
-p = 10
+p = 5
 Wmat <- matrix(rnorm(N * p), ncol = p)
-beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
+beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]
+beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]
 tau <- 2
 gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)
 W <- as.matrix(Wmat)
@@ -77,41 +77,37 @@ time_preorder <- system.time(
                                            order = rev(1:p), detailed = TRUE)
 )
 
-
+# scalable (discrete) C-TMLE takes much less computation time
 time_greedy
 #>    user  system elapsed 
-#>   4.733   0.098   4.892
+#>   1.763   0.034   1.814
 time_preorder
 #>    user  system elapsed 
-#>   1.855   0.027   1.891
+#>   0.983   0.016   1.018
 
-# Show the detailed results from greedy CTMLE
+# Show the brief results from greedy CTMLE
 ctmle_discrete_fit1
 #> C-TMLE result:
-#>  parameter estimate:  1.91732 
-#>  estimated variance:  0.00549 
+#>  parameter estimate:  1.99472 
+#>  estimated variance:  0.00838 
 #>             p-value:  <2e-16 
-#>   95% conf interval: (1.77215, 2.06249)
+#>   95% conf interval: (1.81533, 2.1741)
+# summary function offers detial information of which variable is selected.
 summary(ctmle_discrete_fit1)
 #> 
-#> Number of candidate TMLE estimators created:  11 
+#> Number of candidate TMLE estimators created:  6 
 #> A candidate TMLE estimator was created at each move, as each new term
 #> was incorporated into the model for g.
 #> ---------------------------------------------------------------------- 
-#>          term added cleverCovar estimate cv-RSS cv-varIC cv-penRSS
-#> cand 1  (intercept)           1     3.92   21.4   0.0859     20418
-#> cand 2           X2           1     3.07   21.2   0.0911     20249
-#> cand 3           X1           1     2.56   21.0   0.0908     19990
-#> cand 4           X6           1     2.32   20.8   0.0917     19827
-#> cand 5           X8           1     2.13   20.6   0.0909     19689
-#> cand 6           X5           1     1.92   20.4   0.0919     19489
-#> cand 7           X7           1     1.88   20.5   0.0942     19514
-#> cand 8          X10           1     1.86   20.5   0.0941     19536
-#> cand 9           X3           1     1.84   20.5   0.0925     19553
-#> cand 10          X4           2     1.85   20.5   0.0961     19573
-#> cand 11          X9           2     1.86   20.5   0.1017     19569
+#>         term added cleverCovar estimate cv-RSS cv-varIC cv-penRSS
+#> cand 1 (intercept)           1     4.22   19.9   0.0788     14045
+#> cand 2          X2           1     3.22   19.6   0.0851     13818
+#> cand 3          X5           1     2.61   19.1   0.0870     13485
+#> cand 4          X1           1     2.00   18.3   0.0955     12945
+#> cand 5          X4           2     1.99   18.3   0.0950     12937
+#> cand 6          X3           3     2.01   18.3   0.1008     12941
 #> ---------------------------------------------------------------------- 
-#> Selected TMLE estimator is candidate 6 
+#> Selected TMLE estimator is candidate 5 
 #> 
 #> Each TMLE candidate was created by fluctuating the initial fit, Q0(A,W)=E[Y|A,W], obtained in stage 1.
 #> 
@@ -122,47 +118,31 @@ summary(ctmle_discrete_fit1)
 #>              h1b is based on a treatment mechanism model containing covariates X2
 #> 
 #>      cand 3: Q3(A,W) = Q0(A,W) + epsilon1c * h1c 
-#>              h1c is based on a treatment mechanism model containing covariates X2, X1
+#>              h1c is based on a treatment mechanism model containing covariates X2, X5
 #> 
 #>      cand 4: Q4(A,W) = Q0(A,W) + epsilon1d * h1d 
-#>              h1d is based on a treatment mechanism model containing covariates X2, X1, X6
+#>              h1d is based on a treatment mechanism model containing covariates X2, X5, X1
 #> 
-#>      cand 5: Q5(A,W) = Q0(A,W) + epsilon1e * h1e 
-#>              h1e is based on a treatment mechanism model containing covariates X2, X1, X6, X8
+#>      cand 5: Q5(A,W) = Q0(A,W) + epsilon1d * h1d + epsilon2 * h2                     = Q4(A,W) + epsilon2 * h2,
+#>              h2 is based on a treatment mechanism model containing covariates X2, X5, X1, X4
 #> 
-#>      cand 6: Q6(A,W) = Q0(A,W) + epsilon1f * h1f 
-#>              h1f is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5
-#> 
-#>      cand 7: Q7(A,W) = Q0(A,W) + epsilon1g * h1g 
-#>              h1g is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5, X7
-#> 
-#>      cand 8: Q8(A,W) = Q0(A,W) + epsilon1h * h1h 
-#>              h1h is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5, X7, X10
-#> 
-#>      cand 9: Q9(A,W) = Q0(A,W) + epsilon1i * h1i 
-#>              h1i is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5, X7, X10, X3
-#> 
-#>      cand 10: Q10(A,W) = Q0(A,W) + epsilon1i * h1i + epsilon2a * h2a                     = Q9(A,W) + epsilon2a * h2a,
-#>              h2a is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5, X7, X10, X3, X4
-#> 
-#>      cand 11: Q11(A,W) = Q0(A,W) + epsilon1i * h1i + epsilon2b * h2b                     = Q9(A,W) + epsilon2b * h2b,
-#>              h2b is based on a treatment mechanism model containing covariates X2, X1, X6, X8, X5, X7, X10, X3, X4, X9
+#>      cand 6: Q6(A,W) = Q0(A,W) + epsilon1d * h1d + epsilon2 * h2 + epsilon3 * h3                     = Q5(A,W) + epsilon3 * h3,
+#>              h3 is based on a treatment mechanism model containing covariates X2, X5, X1, X4, X3
 #> 
 #> ---------- 
 #> C-TMLE result:
-#>  parameter estimate:  1.91732 
-#>  estimated variance:  0.00549 
+#>  parameter estimate:  1.99472 
+#>  estimated variance:  0.00838 
 #>             p-value:  <2e-16 
-#>   95% conf interval: (1.77215, 2.06249)
+#>   95% conf interval: (1.81533, 2.1741)
 ```
 
 C-TMLE LASSO for model selection of LASSO
 -----------------------------------------
 
-In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of Propensity Score, and for simplicity we call them C-TMLE LASSO algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in !!!.
+In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them C-TMLE LASSO algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
 
 ``` r
-library(ctmle)
 # Generate high-dimensional data
 set.seed(123)
 
@@ -184,8 +164,7 @@ Y  <- beta0 + tau * A + epsilon
 # With initial estimate of Q
 Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 
-
-glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 10)
+glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 20)
 
 # We suggest start build a sequence of lambdas from the lambda selected by cross-validation
 lambdas <-glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
@@ -224,63 +203,104 @@ time_ctmlelasso3 <- system.time(
 
 time_ctmlelasso1
 #>    user  system elapsed 
-#>   8.927   0.033   9.011
+#>  14.911   0.118  15.143
 time_ctmlelasso2
 #>    user  system elapsed 
-#>   9.967   0.074  10.187
+#>  18.510   0.102  18.711
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.005   0.000   0.005
+#>   0.006   0.000   0.006
 
 ctmle_fit1
 #> C-TMLE result:
-#>  parameter estimate:  2.19459 
-#>  estimated variance:  0.10154 
-#>             p-value:  5.6933e-12 
-#>   95% conf interval: (1.57003, 2.81915)
+#>  parameter estimate:  2.20368 
+#>  estimated variance:  0.09796 
+#>             p-value:  1.9124e-12 
+#>   95% conf interval: (1.59022, 2.81714)
 ctmle_fit2
 #> C-TMLE result:
-#>  parameter estimate:  2.16923 
-#>  estimated variance:  0.05691 
+#>  parameter estimate:  2.16669 
+#>  estimated variance:  0.05327 
 #>             p-value:  <2e-16 
-#>   95% conf interval: (1.70164, 2.63681)
+#>   95% conf interval: (1.71429, 2.61908)
 ctmle_fit3
 #> C-TMLE result:
-#>  parameter estimate:  2.0329 
-#>  estimated variance:  0.05025 
+#>  parameter estimate:  2.02422 
+#>  estimated variance:  0.04972 
 #>             p-value:  <2e-16 
-#>   95% conf interval: (1.59354, 2.47225)
+#>   95% conf interval: (1.58718, 2.46126)
 
 # Show which regularization parameter (lambda) is selected by C-TMLE1:
 lambdas[ctmle_fit1$best_k]
-#> [1] 0.003751394
+#> [1] 0.004409285
+
+# In comparison, show which regularization parameter (lambda) is selected by cv.glmnet:
+lambdas[1]
+#> [1] 0.03065303
 ```
 
 Advanced topic: the general template of C-TMLE
 ----------------------------------------------
 
 ``` r
-library(ctmle)
-# Generate high-dimensional data for the general template of C-TMLE
-set.seed(123)
+lasso_fit <- cv.glmnet(x = as.matrix(W), y = A, alpha = 1, nlambda = 100, nfolds = 10)
+lasso_lambdas <- lasso_fit$lambda[lasso_fit$lambda <= lasso_fit$lambda.min][1:5]
 
-N <- 1000
-p = 100
-Wmat <- matrix(rnorm(N * p), ncol = p)
-beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-tau <- 2
-gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)
-W <- as.matrix(Wmat)
+# Build SL template for glmnet
+SL.glmnet_new <- function(Y, X, newX, family, obsWeights, id, alpha = 1,
+                           nlambda = 100, lambda = 0,...){
+      # browser()
+      if (!is.matrix(X)) {
+            X <- model.matrix(~-1 + ., X)
+            newX <- model.matrix(~-1 + ., newX)
+      }
+      fit <- glmnet::glmnet(x = X, y = Y,
+                            lambda = lambda,
+                            family = family$family, alpha = alpha)
+      pred <- predict(fit, newx = newX, type = "response")
+      fit <- list(object = fit)
+      class(fit) <- "SL.glmnet"
+      out <- list(pred = pred, fit = fit)
+      return(out)
+}
 
-g <- 1/(1+exp(W%*%gcoef /3))
-A <- rbinom(N, 1, prob = g)
+# Use a sequence of estimator to build gn sequence:
+SL.cv1lasso <- function (... , alpha = 1, lambda = lasso_lambdas[1]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
 
-epsilon <-rnorm(N, 0, 1)
-Y  <- beta0 + tau * A + epsilon
+SL.cv2lasso <- function (... , alpha = 1, lambda = lasso_lambdas[2]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
 
-# With initial estimate of Q
-Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
+SL.cv3lasso <- function (... , alpha = 1, lambda = lasso_lambdas[3]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
+
+SL.cv4lasso <- function (... , alpha = 1, lambda = lasso_lambdas[4]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
+
+SL.library = c('SL.cv1lasso', 'SL.cv2lasso', 'SL.cv3lasso', 'SL.cv4lasso', 'SL.glm')
+
+V = 5
+folds <-by(sample(1:N,N), rep(1:V, length=N), list)
+
+gn_seq <- build_gn_seq(A = A, W = W, SL.library = SL.library, folds = folds)
+
+
+ctmle_general_fit1 <- ctmleGeneral(Y = Y, A = A, W = W, Q = Q,
+                                   ctmletype = 1, 
+                                   gn_candidates = gn_seq$gn_candidates,
+                                   gn_candidates_cv = gn_seq$gn_candidates_cv,
+                                   folds = folds, V = 5)
+
+ctmle_general_fit1
+#> C-TMLE result:
+#>  parameter estimate:  2.22783 
+#>  estimated variance:  0.10697 
+#>             p-value:  9.6451e-12 
+#>   95% conf interval: (1.58679, 2.86887)
 ```
 
 Citation
@@ -288,7 +308,7 @@ Citation
 
 If you used `ctmle` package in your research, please cite:
 
-> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Collaborative Targeted Maximum Likelihood Estimation for Variable and Model Selection in Causal Inference
+> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation
 
 References
 ----------

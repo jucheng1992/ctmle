@@ -40,14 +40,14 @@ In this section, we start with examples of discrete C-TMLE for variable selectio
 
 
 ```{r,eval=TRUE}
-library(ctmle, quietly = TRUE)
+library(ctmle)
 set.seed(123)
 
 N <- 1000
-p = 10
+p = 5
 Wmat <- matrix(rnorm(N * p), ncol = p)
-beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
+beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]
+beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]
 tau <- 2
 gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)
 W <- as.matrix(Wmat)
@@ -75,12 +75,13 @@ time_preorder <- system.time(
                                            order = rev(1:p), detailed = TRUE)
 )
 
-
+# scalable (discrete) C-TMLE takes much less computation time
 time_greedy
 time_preorder
 
-# Show the detailed results from greedy CTMLE
+# Show the brief results from greedy CTMLE
 ctmle_discrete_fit1
+# summary function offers detial information of which variable is selected.
 summary(ctmle_discrete_fit1)
 
 ```
@@ -88,10 +89,9 @@ summary(ctmle_discrete_fit1)
 
 ## C-TMLE LASSO for model selection of LASSO
 
-In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of Propensity Score, and for simplicity we call them C-TMLE LASSO algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in !!!.
+In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them C-TMLE LASSO algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
 
 ```{r,eval = TRUE}
-
 # Generate high-dimensional data
 set.seed(123)
 
@@ -113,8 +113,7 @@ Y  <- beta0 + tau * A + epsilon
 # With initial estimate of Q
 Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 
-
-glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 10)
+glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 20)
 
 # We suggest start build a sequence of lambdas from the lambda selected by cross-validation
 lambdas <-glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
@@ -162,33 +161,68 @@ ctmle_fit3
 # Show which regularization parameter (lambda) is selected by C-TMLE1:
 lambdas[ctmle_fit1$best_k]
 
+# In comparison, show which regularization parameter (lambda) is selected by cv.glmnet:
+lambdas[1]
+
 ```
 
 ## Advanced topic: the general template of C-TMLE
 
 
 ```{r,eval = TRUE}
+lasso_fit <- cv.glmnet(x = as.matrix(W), y = A, alpha = 1, nlambda = 100, nfolds = 10)
+lasso_lambdas <- lasso_fit$lambda[lasso_fit$lambda <= lasso_fit$lambda.min][1:5]
 
-# Generate high-dimensional data for the general template of C-TMLE
-set.seed(123)
+# Build SL template for glmnet
+SL.glmnet_new <- function(Y, X, newX, family, obsWeights, id, alpha = 1,
+                           nlambda = 100, lambda = 0,...){
+      # browser()
+      if (!is.matrix(X)) {
+            X <- model.matrix(~-1 + ., X)
+            newX <- model.matrix(~-1 + ., newX)
+      }
+      fit <- glmnet::glmnet(x = X, y = Y,
+                            lambda = lambda,
+                            family = family$family, alpha = alpha)
+      pred <- predict(fit, newx = newX, type = "response")
+      fit <- list(object = fit)
+      class(fit) <- "SL.glmnet"
+      out <- list(pred = pred, fit = fit)
+      return(out)
+}
 
-N <- 1000
-p = 100
-Wmat <- matrix(rnorm(N * p), ncol = p)
-beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-tau <- 2
-gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)
-W <- as.matrix(Wmat)
+# Use a sequence of estimator to build gn sequence:
+SL.cv1lasso <- function (... , alpha = 1, lambda = lasso_lambdas[1]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
 
-g <- 1/(1+exp(W%*%gcoef /3))
-A <- rbinom(N, 1, prob = g)
+SL.cv2lasso <- function (... , alpha = 1, lambda = lasso_lambdas[2]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
 
-epsilon <-rnorm(N, 0, 1)
-Y  <- beta0 + tau * A + epsilon
+SL.cv3lasso <- function (... , alpha = 1, lambda = lasso_lambdas[3]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
 
-# With initial estimate of Q
-Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
+SL.cv4lasso <- function (... , alpha = 1, lambda = lasso_lambdas[4]){
+      SL.glmnet_new(... , alpha = alpha, lambda = lambda)
+}
+
+SL.library = c('SL.cv1lasso', 'SL.cv2lasso', 'SL.cv3lasso', 'SL.cv4lasso', 'SL.glm')
+
+V = 5
+folds <-by(sample(1:N,N), rep(1:V, length=N), list)
+
+gn_seq <- build_gn_seq(A = A, W = W, SL.library = SL.library, folds = folds)
+
+
+ctmle_general_fit1 <- ctmleGeneral(Y = Y, A = A, W = W, Q = Q,
+                                   ctmletype = 1, 
+                                   gn_candidates = gn_seq$gn_candidates,
+                                   gn_candidates_cv = gn_seq$gn_candidates_cv,
+                                   folds = folds, V = 5)
+
+ctmle_general_fit1
 
 ```
 
@@ -196,7 +230,7 @@ Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 
 If you used `ctmle` package in your research, please cite:
 
->Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Collaborative Targeted Maximum Likelihood Estimation for Variable and Model Selection in Causal Inference
+>Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation
 
 ## References
 
