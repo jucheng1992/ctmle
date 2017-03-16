@@ -80,10 +80,10 @@ time_preorder <- system.time(
 # scalable (discrete) C-TMLE takes much less computation time
 time_greedy
 #>    user  system elapsed 
-#>   1.763   0.034   1.814
+#>   1.747   0.040   1.805
 time_preorder
 #>    user  system elapsed 
-#>   0.983   0.016   1.018
+#>   0.987   0.020   1.009
 
 # Show the brief results from greedy CTMLE
 ctmle_discrete_fit1
@@ -203,10 +203,10 @@ time_ctmlelasso3 <- system.time(
 
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  14.911   0.118  15.143
+#>  15.275   0.093  15.461
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.510   0.102  18.711
+#>  18.528   0.068  18.648
 time_ctmlelasso3
 #>    user  system elapsed 
 #>   0.006   0.000   0.006
