@@ -13,9 +13,11 @@ Depends:
   tmle,
   glmnet,
   stats
-Imports:
+Imports: 
 Suggests:
-  testthat
+  testthat,
+    knitr,
+    rmarkdown
 LazyLoad: yes
 RoxygenNote: 6.0.1
-
+VignetteBuilder: knitr
