@@ -2,7 +2,7 @@
 % Please edit documentation in R/ctmle_general.R
 \name{ctmleGeneral}
 \alias{ctmleGeneral}
-\title{General Template for Collaborative Targeted Maximum Likelihood Etimation}
+\title{General Template for Collaborative Targeted Maximum Likelihood Estimation}
 \usage{
 ctmleGeneral(Y, A, W, Wg = W, Q, ctmletype, gn_candidates,
   gn_candidates_cv = NULL, alpha = 0.995, family = "gaussian",
@@ -23,14 +23,14 @@ ctmleGeneral(Y, A, W, Wg = W, Q, ctmletype, gn_candidates,
 \item{Q}{n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively.
 Current version does not support SL for automatic initial estimation of Q bar}
 
-\item{ctmletype}{1 or 3. Type of general C-TMLE. Type 1 uses cross-vaidation to select best gn,
-while Type 3 directly solves extra clever covariates. See more details in !!!}
+\item{ctmletype}{1 or 3. Type of general C-TMLE. Type 1 uses cross-validation to select best gn,
+while Type 3 directly solves extra clever covariates.}
 
 \item{gn_candidates}{matrix or dataframe, each column stand for a estimate of propensity score.
 Estimate in the column with larger index should have smaller empirical loss}
 
 \item{gn_candidates_cv}{matrix or dataframe, each column stand for a the cross-validated estimate.
-For example, the (i,j)-th epelemnt is the predicted propensity score by j-th estimator,
+For example, the (i,j)-th element is the predicted propensity score by j-th estimator,
  for i-th observation, when it is in the validation set}
 
 \item{alpha}{used to keep predicted initial values bounded away from (0,1) for logistic fluctuation,
@@ -49,16 +49,16 @@ outcomes (default), 'binomial' for binary outcomes}
 
 \item{detailed}{boolean number. If it is TRUE, return more detailed results}
 
-\item{PEN}{boolean. If true, penalized loss is used in cross-valitation step}
+\item{PEN}{boolean. If true, penalized loss is used in cross-validation step}
 
-\item{g1W}{Only used when typr is 3. a user-supplied propensity score estimate.}
+\item{g1W}{Only used when type is 3. a user-supplied propensity score estimate.}
 
-\item{g1WPrev}{Only used when typr is 3. a user-supplied propensity score estimate,
+\item{g1WPrev}{Only used when type is 3. a user-supplied propensity score estimate,
 with small fluctuation compared to g1W.}
 
 \item{V}{Number of folds. Only used if folds is not specified}
 
-\item{folds}{The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv}
+\item{folds}{The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv}
 
 \item{stopFactor}{Numerical value with default 1e6.
 If the current empirical likelihood is stopFactor times larger than the best previous one,
@@ -88,7 +88,7 @@ penlikelihood.cv penalized cross-validatedlikelihood
 cv.res all cross-validation results for each fold
 }
 \description{
-This function computes the Collaborative Targeted Maximum Likelihood Estimator. See more detials in !!!
+This function computes the Collaborative Targeted Maximum Likelihood Estimator.
 }
 \examples{
 N <- 1000

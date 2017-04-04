@@ -1,6 +1,6 @@
-#' General Template for Collaborative Targeted Maximum Likelihood Etimation
+#' General Template for Collaborative Targeted Maximum Likelihood Estimation
 #'
-#' This function computes the Collaborative Targeted Maximum Likelihood Estimator. See more detials in !!!
+#' This function computes the Collaborative Targeted Maximum Likelihood Estimator.
 #'
 #'@import glmnet
 #'@import SuperLearner
@@ -14,14 +14,14 @@
 #' (defaults to W if not supplied by user)
 #' @param Q n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively.
 #' Current version does not support SL for automatic initial estimation of Q bar
-#' @param ctmletype 1 or 3. Type of general C-TMLE. Type 1 uses cross-vaidation to select best gn,
-#'  while Type 3 directly solves extra clever covariates. See more details in !!!
+#' @param ctmletype 1 or 3. Type of general C-TMLE. Type 1 uses cross-validation to select best gn,
+#'  while Type 3 directly solves extra clever covariates.
 #' @param gn_candidates matrix or dataframe, each column stand for a estimate of propensity score.
 #'  Estimate in the column with larger index should have smaller empirical loss
 #' @param gn_candidates_cv matrix or dataframe, each column stand for a the cross-validated estimate.
-#' For example, the (i,j)-th epelemnt is the predicted propensity score by j-th estimator,
+#' For example, the (i,j)-th element is the predicted propensity score by j-th estimator,
 #'  for i-th observation, when it is in the validation set
-#' @param folds The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv
+#' @param folds The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv
 #' @param V Number of folds. Only used if folds is not specified
 #' @param alpha used to keep predicted initial values bounded away from (0,1) for logistic fluctuation,
 #'  0.995 (default)
@@ -31,9 +31,9 @@
 #' @param gbound bound on P(A=1|W), defaults to 0.025
 #' @param fluctuation 'logistic' (default) or 'linear', for targeting step
 #' @param verbose print status messages if TRUE
-#' @param PEN boolean. If true, penalized loss is used in cross-valitation step
-#' @param g1W Only used when typr is 3. a user-supplied propensity score estimate.
-#' @param g1WPrev Only used when typr is 3. a user-supplied propensity score estimate,
+#' @param PEN boolean. If true, penalized loss is used in cross-validation step
+#' @param g1W Only used when type is 3. a user-supplied propensity score estimate.
+#' @param g1WPrev Only used when type is 3. a user-supplied propensity score estimate,
 #' with small fluctuation compared to g1W.
 #' @param stopFactor Numerical value with default 1e6.
 #' If the current empirical likelihood is stopFactor times larger than the best previous one,

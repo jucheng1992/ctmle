@@ -1,7 +1,6 @@
-#' Collaborative Targeted Maximum Likelihood for hyper-parameter tuning of LASSO
+#' Collaborative Targeted Maximum Likelihood Estimation for hyper-parameter tuning of LASSO
 #'
 #' This function computes the Collaborative Maximum Likelihood Estimation for hyper-parameter tuning of LASSO.
-#'See more detials in !!!
 #'
 #' @export
 #' @param Y continuous or binary outcome variable
@@ -9,22 +8,22 @@
 #' @param W vector, matrix, or dataframe containing baseline covariates for Q bar
 #' @param Wg vector, matrix, or dataframe containing baseline covariates for propensity score model (defaults to W if not supplied by user)
 #' @param Q  n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar
-#' @param ctmletype 1, 2 or 3. Type of general C-TMLE. Type 1 uses cross-vaidation to select best gn, Type 3 directly solves extra clever covariates,
+#' @param ctmletype 1, 2 or 3. Type of general C-TMLE. Type 1 uses cross-validation to select best gn, Type 3 directly solves extra clever covariates,
 #' and Type 2 uses both cross-validation and extra covariate. See more details in !!!
-#' @param lambdas numeric vector of lambdas (regulariztion parameter) for glmnet estimation of propensity score, with decreasing order. We recommand the
-#' first lambda is selected by external cross-validation. See more detetails in !!!
-#' @param folds The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv
+#' @param lambdas numeric vector of lambdas (regularization parameter) for glmnet estimation of propensity score, with decreasing order. We recommend the
+#' first lambda is selected by external cross-validation.
+#' @param folds The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv
 #' @param V Number of folds. Only used if folds is not specified
 #' @param alpha used to keep predicted initial values bounded away from (0,1) for logistic fluctuation, 0.995 (default)
-#' @param family family specification for working regression models, 
+#' @param family family specification for working regression models,
 #' generally 'gaussian' for continuous outcomes (default), 'binomial' for binary outcomes
 #' @param like_type 'RSS' or 'loglike'. The metric to use for forward selection and cross-validation
 #' @param gbound bound on P(A=1|W), defaults to 0.025
 #' @param fluctuation 'logistic' (default) or 'linear', for targeting step
 #' @param verbose print status messages if TRUE
-#' @param PEN boolean. If true, penalized loss is used in cross-valitation step
-#' @param g1W Only used when typr is 3. a user-supplied propensity score estimate.
-#' @param g1WPrev Only used when typr is 3. a user-supplied propensity score estimate, with small fluctuation compared to g1W.
+#' @param PEN boolean. If true, penalized loss is used in cross-validation step
+#' @param g1W Only used when type is 3. a user-supplied propensity score estimate.
+#' @param g1WPrev Only used when type is 3. a user-supplied propensity score estimate, with small fluctuation compared to g1W.
 #' @param stopFactor Numerical value with default 1e6. If the current empirical likelihood is stopFactor times larger than the best previous one, the construction would stop
 #' @param detailed boolean number. If it is TRUE, return more detailed results
 #' @return best_k  the index of estimate that selected by cross-validation

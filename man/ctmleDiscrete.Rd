@@ -2,7 +2,7 @@
 % Please edit documentation in R/ctmle_discrete.R
 \name{ctmleDiscrete}
 \alias{ctmleDiscrete}
-\title{Discrete Collaborative Targeted Minimum-loss based Etimation}
+\title{Discrete Collaborative Targeted Minimum-loss based Estimation}
 \usage{
 ctmleDiscrete(Y, A, W, Wg = W, Q = NULL, preOrder = FALSE, order = NULL,
   patience = FALSE, Qbounds = NULL, cvQinit = FALSE, Qform = NULL,
@@ -20,12 +20,12 @@ ctmleDiscrete(Y, A, W, Wg = W, Q = NULL, preOrder = FALSE, order = NULL,
 
 \item{Wg}{vector, matrix, or dataframe containing baseline covariates for propensity score model (defaults to W if not supplied by user)}
 
-\item{Q}{nby 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar}
+\item{Q}{n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar}
 
 \item{preOrder}{boolean indicator for using scalable C-TMLE algorithm or not}
 
-\item{order}{the use-specified order of covariables. Only used when (preOrder = TRUE). If not supplid by user,
-it would automatically order covariates from W1 to Wp}
+\item{order}{the use-specified order of covariables. Only used when (preOrder = TRUE). If not supplied by user,
+it would automatically order covariates from W_1 to W_p}
 
 \item{patience}{a number to stop early when the score in the CV function does not improve after so many covariates. Used only when (preOrder = TRUE)}
 
@@ -51,11 +51,11 @@ it would automatically order covariates from W1 to Wp}
 
 \item{detailed}{boolean number. If it is TRUE, return more detailed results}
 
-\item{PEN}{boolean. If true, penalized loss is used in cross-valitation step}
+\item{PEN}{boolean. If true, penalized loss is used in cross-validation step}
 
 \item{V}{Number of folds. Only used if folds is not specified}
 
-\item{folds}{The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv}
+\item{folds}{The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv}
 
 \item{stopFactor}{Numerical value with default 1e6. If the current empirical likelihood is stopFactor times larger than the best previous one, the construction would stop}
 }
@@ -78,13 +78,13 @@ var.psi variance of the estimate
 
 varIC.cv cross-validated variance of the influence curve
 
-penlikelihood.cv penalized cross-validatedlikelihood
+penlikelihood.cv penalized cross-validated likelihood
 
 cv.res all cross-validation results for each fold
 }
 \description{
 This function computes the discrete Collaborative Targeted Minimum-loss based Estimator for variable selection.
-It includes the greedy C-TMLE algorithm (Gruber and ven der Laan 2010), and scalable C-TMLE algorithm
+It includes the greedy C-TMLE algorithm (Gruber and van der Laan 2010), and scalable C-TMLE algorithm
 (Ju, Gruber, and Lendle et al. 2016) with a user-specified order.
 }
 \examples{

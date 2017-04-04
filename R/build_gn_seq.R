@@ -7,14 +7,14 @@
 #' @param A binary treatment indicator, 1 - treatment, 0 - control
 #' @param W vector, matrix, or dataframe containing baseline covariates for Q bar
 #' @param SL.library a vector of the names of the estimators for ctmle
-#' (need to be prepared in the format for SL, see more detials in SuperLearner package),
+#' (need to be prepared in the format for SL, see more details in SuperLearner package),
 #' The theory of ctmle requires the estimators are ordered by the model complexity,
 #' with the last one be a consistent estimator.
 #' @param folds The list of indices for the ctmle cross-validation step
 #' @return gn_candidates_cv matrix or dataframe, each column stand for a estimate of
 #' propensity score. Estimate in the column with larger index should have smaller empirical loss
 #' @return gn_candidates matrix or dataframe, each column stand for a the cross-validated estimate.
-#' For example, the (i,j)-th epelemnt is the predicted propensity score by j-th estimator,
+#' For example, the (i,j)-th element is the predicted propensity score by j-th estimator,
 #' for i-th observation, when it is in the validation set
 #' @return folds The list of indices for the ctmle cross-validation step
 #' @examples
@@ -75,10 +75,10 @@
 #'
 #'gn_seq$gn_candidates_cv
 #'gn_seq$gn_candidates
-build_gn_seq <- function(A, W, SL.library, folds){
+build_gn_seq <- function(A, W, SL.library, folds, verbose = TRUE){
 
       SL_fit <- SuperLearner(Y = A, X = as.data.frame(W),
-                             SL.library = SL.library,
+                             SL.library = SL.library, family = 'binomial', verbose = verbose,
                              cvControl = list(V = length(folds), validRows = folds))
 
       return(list(gn_candidates_cv = SL_fit$Z, gn_candidates = SL_fit$library.predict, folds = folds))

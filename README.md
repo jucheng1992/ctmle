@@ -43,6 +43,15 @@ library(ctmle)
 #> Loading required package: Matrix
 #> Loading required package: foreach
 #> Loaded glmnet 2.0-5
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 set.seed(123)
 
 N <- 1000
@@ -76,23 +85,33 @@ time_preorder <- system.time(
                                            preOrder = TRUE,
                                            order = rev(1:p), detailed = TRUE)
 )
+```
 
-# scalable (discrete) C-TMLE takes much less computation time
+Scalable (discrete) C-TMLE takes much less computation time:
+
+``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.753   0.036   1.806
+#>   1.618   0.029   1.651
 time_preorder
 #>    user  system elapsed 
-#>   0.942   0.022   0.964
+#>   0.872   0.022   0.896
+```
 
-# Show the brief results from greedy CTMLE
+Show the brief results from greedy CTMLE:
+
+``` r
 ctmle_discrete_fit1
 #> C-TMLE result:
 #>  parameter estimate:  1.99472 
 #>  estimated variance:  0.00838 
 #>             p-value:  <2e-16 
 #>   95% conf interval: (1.81533, 2.1741)
-# summary function offers detial information of which variable is selected.
+```
+
+Summary function offers detial information of which variable is selected.
+
+``` r
 summary(ctmle_discrete_fit1)
 #> 
 #> Number of candidate TMLE estimators created:  6 
@@ -140,7 +159,7 @@ summary(ctmle_discrete_fit1)
 C-TMLE LASSO for model selection of LASSO
 -----------------------------------------
 
-In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them C-TMLE LASSO algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
+In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them LASSO C-TMLE algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
 
 ``` r
 # Generate high-dimensional data
@@ -165,31 +184,43 @@ Y  <- beta0 + tau * A + epsilon
 Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 
 glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 20)
+```
 
-# We suggest start build a sequence of lambdas from the lambda selected by cross-validation
+We suggest start build a sequence of lambdas from the lambda selected by cross-validation, as the model selected by cv.glmnet would over-smooth w.r.t. the target parameter.
+
+``` r
 lambdas <-glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
+```
 
-# We fit C-TMLE1 algorithm
+We fit C-TMLE1 algorithm by feed the algorithm with a vector of lambda, in decreasing order:
+
+``` r
 time_ctmlelasso1 <- system.time(
       ctmle_fit1 <- ctmleGlmnet(Y = Y, A = A,
                                 W = data.frame(W = W),
                                 Q = Q, lambdas = lambdas, ctmletype=1, 
                                 family="gaussian",gbound=0.025, V=5)
 )
+```
 
-# We fit C-TMLE2 algorithm
+We fit C-TMLE2 algorithm
+
+``` r
 time_ctmlelasso2 <- system.time(
       ctmle_fit2 <- ctmleGlmnet(Y = Y, A = A,
                                 W = data.frame(W = W),
                                 Q = Q, lambdas = lambdas, ctmletype=2, 
                                 family="gaussian",gbound=0.025, V=5)
 )
-# For C-TMLE3, we need two gn estimators, one with lambda selected by cross-validation, 
-# and the other with lambda slightly different from the selected lambda
+```
+
+For C-TMLE3, we need two gn estimators, one with lambda selected by cross-validation, and the other with lambda slightly different from the selected lambda:
+
+``` r
 gcv <- predict.cv.glmnet(glmnet_fit, newx=W, s="lambda.min",type="response")
 gcv <- bound(gcv,c(0.025,0.975))
 
-s_prev <- glmnet_fit$lambda[(which(glmnet_fit$lambda == glmnet_fit$lambda.min))] + 1e-4
+s_prev <- glmnet_fit$lambda[(which(glmnet_fit$lambda == glmnet_fit$lambda.min))] * (1+5e-2)
 gcvPrev <- predict.cv.glmnet(glmnet_fit,newx = W,s = s_prev,type="response")
 gcvPrev <- bound(gcvPrev,c(0.025,0.975))
 
@@ -199,18 +230,25 @@ time_ctmlelasso3 <- system.time(
                                 family="gaussian",
                                 gbound=0.025, V = 5)
 )
+```
 
+Les't compare the running time for each LASSO-C-TMLE
 
+``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.304   0.049  15.408
+#>  15.157   0.065  15.270
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.634   0.065  18.725
+#>  18.770   0.085  18.912
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.006   0.000   0.006
+#>   0.005   0.000   0.005
+```
 
+Finally, we compared three C-TMLE estimates:
+
+``` r
 ctmle_fit1
 #> C-TMLE result:
 #>  parameter estimate:  2.20368 
@@ -225,22 +263,34 @@ ctmle_fit2
 #>   95% conf interval: (1.71429, 2.61908)
 ctmle_fit3
 #> C-TMLE result:
-#>  parameter estimate:  2.02422 
+#>  parameter estimate:  2.02388 
 #>  estimated variance:  0.04972 
 #>             p-value:  <2e-16 
-#>   95% conf interval: (1.58718, 2.46126)
+#>   95% conf interval: (1.58684, 2.46093)
+```
 
-# Show which regularization parameter (lambda) is selected by C-TMLE1:
+Show which regularization parameter (lambda) is selected by C-TMLE1:
+
+``` r
 lambdas[ctmle_fit1$best_k]
 #> [1] 0.004409285
+```
 
-# In comparison, show which regularization parameter (lambda) is selected by cv.glmnet:
-lambdas[1]
+In comparison, show which regularization parameter (lambda) is selected by cv.glmnet:
+
+``` r
+glmnet_fit$lambda.min
 #> [1] 0.03065303
 ```
 
 Advanced topic: the general template of C-TMLE
 ----------------------------------------------
+
+In this section, we briefly introduce the general template of C-TMLE. In this function, the gn candidates could be a user-specified matrix, each column stand for the estimated PS for each unit. The estimators should be ordered by their empirical fit.
+
+As C-TMLE requires cross-validation, it needs two gn estimate: one from cross-validated prediction, one from a vanilla prediction. For example, consider 5-folds cross-validation, where argument `folds` is the list of indices for each folds, then the (i,j)-th element in input `gn_candidates_cv` should be the predicted value of i-th unit, predicted by j-th unit, trained by other 4 folds where all of them do not contain i-th unit. `gn_candidates` should be just the predicted PS for each estimator trained on the whole data.
+
+We could easily use `SuperLearner` package and `build_gn_seq` function to easily achieve this:
 
 ``` r
 lasso_fit <- cv.glmnet(x = as.matrix(W), y = A, alpha = 1, nlambda = 100, nfolds = 10)
@@ -282,13 +332,37 @@ SL.cv4lasso <- function (... , alpha = 1, lambda = lasso_lambdas[4]){
 }
 
 SL.library = c('SL.cv1lasso', 'SL.cv2lasso', 'SL.cv3lasso', 'SL.cv4lasso', 'SL.glm')
+```
 
+Construct the object `folds`, which is a list of indices for each fold
+
+``` r
 V = 5
 folds <-by(sample(1:N,N), rep(1:V, length=N), list)
+```
 
+Use `folds` and SuperLearner template to compute `gn_candidates` and `gn_candidates_cv`
+
+``` r
 gn_seq <- build_gn_seq(A = A, W = W, SL.library = SL.library, folds = folds)
+```
 
+Lets look at the output of `build_gn_seq`
 
+``` r
+gn_seq$gn_candidates %>% dim
+#> [1] 1000    5
+gn_seq$gn_candidates_cv %>% dim
+#> [1] 1000    5
+gn_seq$folds %>% length
+#> [1] 5
+```
+
+Then we could use `ctmleGeneral` algorithm. As input estimator is already trained, it is much faster than previous C-TMLE algorithms.
+
+*Note: we recommand use the same `folds` as `build_gn_seq` for `ctmleGeneral`, to make cross-validation objective.*
+
+``` r
 ctmle_general_fit1 <- ctmleGeneral(Y = Y, A = A, W = W, Q = Q,
                                    ctmletype = 1, 
                                    gn_candidates = gn_seq$gn_candidates,

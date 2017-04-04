@@ -4,7 +4,7 @@
 \alias{build_gn_seq}
 \title{Help function to build the sequence of gn candidates in ctmleGeneral}
 \usage{
-build_gn_seq(A, W, SL.library, folds)
+build_gn_seq(A, W, SL.library, folds, verbose = TRUE)
 }
 \arguments{
 \item{A}{binary treatment indicator, 1 - treatment, 0 - control}
@@ -12,7 +12,7 @@ build_gn_seq(A, W, SL.library, folds)
 \item{W}{vector, matrix, or dataframe containing baseline covariates for Q bar}
 
 \item{SL.library}{a vector of the names of the estimators for ctmle
-(need to be prepared in the format for SL, see more detials in SuperLearner package),
+(need to be prepared in the format for SL, see more details in SuperLearner package),
 The theory of ctmle requires the estimators are ordered by the model complexity,
 with the last one be a consistent estimator.}
 
@@ -23,7 +23,7 @@ gn_candidates_cv matrix or dataframe, each column stand for a estimate of
 propensity score. Estimate in the column with larger index should have smaller empirical loss
 
 gn_candidates matrix or dataframe, each column stand for a the cross-validated estimate.
-For example, the (i,j)-th epelemnt is the predicted propensity score by j-th estimator,
+For example, the (i,j)-th element is the predicted propensity score by j-th estimator,
 for i-th observation, when it is in the validation set
 
 folds The list of indices for the ctmle cross-validation step

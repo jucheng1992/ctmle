@@ -1,7 +1,7 @@
-#' Discrete Collaborative Targeted Minimum-loss based Etimation
+#' Discrete Collaborative Targeted Minimum-loss based Estimation
 #'
 #' This function computes the discrete Collaborative Targeted Minimum-loss based Estimator for variable selection.
-#'It includes the greedy C-TMLE algorithm (Gruber and ven der Laan 2010), and scalable C-TMLE algorithm
+#'It includes the greedy C-TMLE algorithm (Gruber and van der Laan 2010), and scalable C-TMLE algorithm
 #'(Ju, Gruber, and Lendle et al. 2016) with a user-specified order.
 #'
 #' @export
@@ -9,16 +9,16 @@
 #' @param A binary treatment indicator, 1 for treatment, 0 for control
 #' @param W vector, matrix, or dataframe containing baseline covariates for Q bar
 #' @param Wg vector, matrix, or dataframe containing baseline covariates for propensity score model (defaults to W if not supplied by user)
-#' @param Q  nby 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar
+#' @param Q  n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar
 #' @param Qform optional regression formula for estimating initial Q
 #' @param SL.library optional vector of prediction algorithms for data adaptive estimation of Q, defaults to glm, and glmnet
 #' @param Qbounds bound on initial Y and predicted values for Q.
 #' @param cvQinit if TRUE, cross-validate initial values for Q to avoid overfits
 #' @param preOrder boolean indicator for using scalable C-TMLE algorithm or not
-#' @param order the use-specified order of covariables. Only used when (preOrder = TRUE). If not supplid by user,
-#' it would automatically order covariates from W1 to Wp
+#' @param order the use-specified order of covariables. Only used when (preOrder = TRUE). If not supplied by user,
+#' it would automatically order covariates from W_1 to W_p
 #' @param patience a number to stop early when the score in the CV function does not improve after so many covariates. Used only when (preOrder = TRUE)
-#' @param folds The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv
+#' @param folds The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv
 #' @param V Number of folds. Only used if folds is not specified
 #' @param alpha used to keep predicted initial values bounded away from (0,1) for logistic fluctuation, 0.995 (default)
 #' @param family family specification for working regression models, generally 'gaussian' for continuous outcomes (default), 'binomial' for binary outcomes
@@ -26,7 +26,7 @@
 #' @param gbound bound on P(A=1|W), defaults to 0.025
 #' @param fluctuation 'logistic' (default) or 'linear', for targeting step
 #' @param verbose print status messages if TRUE
-#' @param PEN boolean. If true, penalized loss is used in cross-valitation step
+#' @param PEN boolean. If true, penalized loss is used in cross-validation step
 #' @param stopFactor Numerical value with default 1e6. If the current empirical likelihood is stopFactor times larger than the best previous one, the construction would stop
 #' @param detailed boolean number. If it is TRUE, return more detailed results
 #' @return best_k  the index of estimate that selected by cross-validation
@@ -38,7 +38,7 @@
 #' @return varDstar empirical variance of the influence curve
 #' @return var.psi variance of the estimate
 #' @return varIC.cv cross-validated variance of the influence curve
-#' @return penlikelihood.cv penalized cross-validatedlikelihood
+#' @return penlikelihood.cv penalized cross-validated likelihood
 #' @return cv.res all cross-validation results for each fold
 #' @examples
 #'N <- 1000

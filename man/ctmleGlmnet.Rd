@@ -2,7 +2,7 @@
 % Please edit documentation in R/ctmle_glmnet.R
 \name{ctmleGlmnet}
 \alias{ctmleGlmnet}
-\title{Collaborative Targeted Maximum Likelihood for hyper-parameter tuning of LASSO}
+\title{Collaborative Targeted Maximum Likelihood Estimation for hyper-parameter tuning of LASSO}
 \usage{
 ctmleGlmnet(Y, A, W, Wg = W, Q, lambdas = NULL, ctmletype, V = 5,
   folds = NULL, alpha = 0.995, family = "gaussian", gbound = 0.025,
@@ -21,19 +21,19 @@ ctmleGlmnet(Y, A, W, Wg = W, Q, lambdas = NULL, ctmletype, V = 5,
 
 \item{Q}{n by 2 matrix of initial values for Q0W, Q1W in columns 1 and 2, respectively. Current version does not support SL for automatic initial estimation of Q bar}
 
-\item{lambdas}{numeric vector of lambdas (regulariztion parameter) for glmnet estimation of propensity score, with decreasing order. We recommand the
-first lambda is selected by external cross-validation. See more detetails in !!!}
+\item{lambdas}{numeric vector of lambdas (regularization parameter) for glmnet estimation of propensity score, with decreasing order. We recommend the
+first lambda is selected by external cross-validation.}
 
-\item{ctmletype}{1, 2 or 3. Type of general C-TMLE. Type 1 uses cross-vaidation to select best gn, Type 3 directly solves extra clever covariates,
+\item{ctmletype}{1, 2 or 3. Type of general C-TMLE. Type 1 uses cross-validation to select best gn, Type 3 directly solves extra clever covariates,
 and Type 2 uses both cross-validation and extra covariate. See more details in !!!}
 
 \item{V}{Number of folds. Only used if folds is not specified}
 
-\item{folds}{The list of indices for cross-validation step. We recommand the cv-splits in C-TMLE matchs that in gn_candidate_cv}
+\item{folds}{The list of indices for cross-validation step. We recommend the cv-splits in C-TMLE matchs that in gn_candidate_cv}
 
 \item{alpha}{used to keep predicted initial values bounded away from (0,1) for logistic fluctuation, 0.995 (default)}
 
-\item{family}{family specification for working regression models, 
+\item{family}{family specification for working regression models,
 generally 'gaussian' for continuous outcomes (default), 'binomial' for binary outcomes}
 
 \item{gbound}{bound on P(A=1|W), defaults to 0.025}
@@ -46,11 +46,11 @@ generally 'gaussian' for continuous outcomes (default), 'binomial' for binary ou
 
 \item{detailed}{boolean number. If it is TRUE, return more detailed results}
 
-\item{PEN}{boolean. If true, penalized loss is used in cross-valitation step}
+\item{PEN}{boolean. If true, penalized loss is used in cross-validation step}
 
-\item{g1W}{Only used when typr is 3. a user-supplied propensity score estimate.}
+\item{g1W}{Only used when type is 3. a user-supplied propensity score estimate.}
 
-\item{g1WPrev}{Only used when typr is 3. a user-supplied propensity score estimate, with small fluctuation compared to g1W.}
+\item{g1WPrev}{Only used when type is 3. a user-supplied propensity score estimate, with small fluctuation compared to g1W.}
 
 \item{stopFactor}{Numerical value with default 1e6. If the current empirical likelihood is stopFactor times larger than the best previous one, the construction would stop}
 }
@@ -80,5 +80,4 @@ cv.res all cross-validation results for each fold
 }
 \description{
 This function computes the Collaborative Maximum Likelihood Estimation for hyper-parameter tuning of LASSO.
-See more detials in !!!
 }
