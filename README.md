@@ -96,10 +96,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.736   0.033   1.771
+#>   1.652   0.026   1.678
 time_preorder
 #>    user  system elapsed 
-#>   1.036   0.005   1.046
+#>   0.952   0.007   0.962
 ```
 
 Show the brief results from greedy CTMLE:
@@ -160,7 +160,7 @@ summary(ctmle_discrete_fit1)
 #>   95% conf interval: (1.81533, 2.1741)
 ```
 
-C-TMLE LASSO for model selection of LASSO
+LASSO-C-TMLE for model selection of LASSO
 -----------------------------------------
 
 In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them LASSO C-TMLE algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
@@ -241,13 +241,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.693   0.061  15.813
+#>  15.789   0.066  15.964
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.612   0.043  18.687
+#>  18.714   0.080  18.919
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.005   0.000   0.005
+#>   0.005   0.000   0.006
 ```
 
 Finally, we compared three C-TMLE estimates:

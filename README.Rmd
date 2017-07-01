@@ -99,7 +99,7 @@ summary(ctmle_discrete_fit1)
 ```
 
 
-## C-TMLE LASSO for model selection of LASSO
+## LASSO-C-TMLE for model selection of LASSO
 
 In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them LASSO C-TMLE algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
 
