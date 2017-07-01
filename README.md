@@ -6,7 +6,9 @@
 Collaborative Targeted Maximum Likelihood Estimation
 ====================================================
 
-In this package, we implemented the general template of Collaborative Targeted Maximum Likelihood Estimation (C-TMLE), for the estimation of the average treatment effect (ATE).
+Collaborative Targeted Maximum Likelihood Estimation (C-TMLE) is an extention of Targeted Maximum Likelihood Estimation (TMLE). It applies variable/model selection for nuisance parameter (e.g. the propensity score) estimation in a 'collaborative' way, by directly optimizing the empirical metric on the causal estimator.
+
+In this package, we implemented the general template of C-TMLE, for the estimation of the average treatment effect (ATE).
 
 The package also offers convenient functions for discrete C-TMLE for variable selection, and LASSO-C-TMLE for model selection of LASSO, in estimation of the propensity score (PS).
 
@@ -94,10 +96,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.531   0.020   1.552
+#>   1.736   0.033   1.771
 time_preorder
 #>    user  system elapsed 
-#>   0.812   0.012   0.830
+#>   1.036   0.005   1.046
 ```
 
 Show the brief results from greedy CTMLE:
@@ -239,13 +241,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.230   0.070  15.351
+#>  15.693   0.061  15.813
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.891   0.065  19.039
+#>  18.612   0.043  18.687
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.007   0.000   0.007
+#>   0.005   0.000   0.005
 ```
 
 Finally, we compared three C-TMLE estimates:
