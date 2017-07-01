@@ -3,6 +3,13 @@
 [![](http://cranlogs.r-pkg.org/badges/simcausal)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/grand-total/simcausal)](https://CRAN.R-project.org/package=ctmle)
 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+Collaborative Targeted Maximum Likelihood Estimation
+====================================================
+
+In this package, we implemented the general template of Collaborative Targeted Maximum Likelihood Estimation (C-TMLE), for the estimation of the average treatment effect (ATE).
+
+The package also offers convenient functions for discrete C-TMLE for variable selection, and LASSO-C-TMLE for model selection of LASSO, in estimation of the propensity score (PS).
+
 Installation
 ============
 
@@ -17,11 +24,6 @@ To install the development version (requires the devtools package):
 ``` r
 devtools::install_github('jucheng1992/ctmle')
 ```
-
-Collaborative Targeted Maximum Likelihood Estimation
-====================================================
-
-In this package, we implemented the general template of C-TMLE, for estimation of average additive treatment effect (ATE). The package also offers the functions for discrete C-TMLE, which could be used for variable selection, and C-TMLE for model selection of LASSO.
 
 C-TMLE for variable selection
 -----------------------------
@@ -92,10 +94,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.580   0.046   1.626
+#>   1.531   0.020   1.552
 time_preorder
 #>    user  system elapsed 
-#>   0.821   0.045   0.866
+#>   0.812   0.012   0.830
 ```
 
 Show the brief results from greedy CTMLE:
@@ -237,13 +239,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.299   0.043  15.374
+#>  15.230   0.070  15.351
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.951   0.064  19.069
+#>  18.891   0.065  19.039
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.006   0.000   0.005
+#>   0.007   0.000   0.007
 ```
 
 Finally, we compared three C-TMLE estimates:
@@ -423,7 +425,7 @@ If you used `ctmle` package in your research, please cite:
 References
 ----------
 
-### C-TMLE LASSO and C-TMLE for Model Selection
+### LASSO-C-TMLE
 
 > Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
 
@@ -438,3 +440,7 @@ References
 #### General Template of C-TMLE
 
 > van der Laan, Mark J., and Susan Gruber. "Collaborative double robust targeted maximum likelihood estimation." The international journal of biostatistics 6.1 (2010): 1-71.
+
+### C-TMLE for Model Selection
+
+> In preperation

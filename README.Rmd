@@ -290,7 +290,8 @@ If you used `ctmle` package in your research, please cite:
 
 ## References
 
-### C-TMLE LASSO and C-TMLE for Model Selection
+
+### LASSO-C-TMLE  
 
 >Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
 
@@ -303,4 +304,8 @@ If you used `ctmle` package in your research, please cite:
 
 #### General Template of C-TMLE
 >van der Laan, Mark J., and Susan Gruber. "Collaborative double robust targeted maximum likelihood estimation." The international journal of biostatistics 6.1 (2010): 1-71.
+
+### C-TMLE for Model Selection 
+
+>In preperation
 
