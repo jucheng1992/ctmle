@@ -96,10 +96,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.652   0.026   1.678
+#>   1.668   0.044   1.712
 time_preorder
 #>    user  system elapsed 
-#>   0.952   0.007   0.962
+#>   0.954   0.009   0.963
 ```
 
 Show the brief results from greedy CTMLE:
@@ -163,7 +163,7 @@ summary(ctmle_discrete_fit1)
 LASSO-C-TMLE for model selection of LASSO
 -----------------------------------------
 
-In this section, we introduce the C-TMLE algorithms for model selection of LASSO in the estimation of propensity core, and for simplicity we call them LASSO C-TMLE algorithm. We have three variacions of C-TMLE LASSO algorithms, see technical details in the corresponding references.
+In this section, we introduce the LASSO-C-TMLE algorithm for model selection of LASSO in the estimation of the propensity score. We implemented three variations of the LASSO-C-TMLE algorithm. For simplicity, we call them C-TMLE1-3. See technical details in the corresponding references.
 
 ``` r
 # Generate high-dimensional data
@@ -172,8 +172,8 @@ set.seed(123)
 N <- 1000
 p = 100
 Wmat <- matrix(rnorm(N * p), ncol = p)
-beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
-beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
+beta1 <- 4 + 2 * Wmat[,1] + 2 * Wmat[,2] + 2 * Wmat[,5] + 2 * Wmat[,6] + 2 * Wmat[,8]
+beta0 <- 2 + 2 * Wmat[,1] + 2 * Wmat[,2] + 2 * Wmat[,5] + 2 * Wmat[,6] + 2 * Wmat[,8]
 tau <- 2
 gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)
 W <- as.matrix(Wmat)
@@ -207,7 +207,7 @@ time_ctmlelasso1 <- system.time(
 )
 ```
 
-We fit C-TMLE2 algorithm
+We fit C-TMLE2 algorithm:
 
 ``` r
 time_ctmlelasso2 <- system.time(
@@ -241,16 +241,16 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.789   0.066  15.964
+#>  14.813   0.036  14.854
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.714   0.080  18.919
+#>  17.756   0.035  17.800
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.005   0.000   0.006
+#>   0.006   0.000   0.005
 ```
 
-Finally, we compared three C-TMLE estimates:
+Finally, we compare three C-TMLE estimates:
 
 ``` r
 ctmle_fit1
@@ -280,7 +280,7 @@ lambdas[ctmle_fit1$best_k]
 #> [1] 0.004409285
 ```
 
-In comparison, show which regularization parameter (lambda) is selected by cv.glmnet:
+In comparison, we show which regularization parameter (lambda) is selected by cv.glmnet:
 
 ``` r
 glmnet_fit$lambda.min
