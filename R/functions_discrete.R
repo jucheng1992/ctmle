@@ -196,6 +196,7 @@ evaluate_candidates <- function(Y,X,Q, family, g.dataset, ab, candidates, ncandi
             } else {
                   likelihood[i] <- -sum(Y[test_set]*log(Qstar[test_set,"QAW"]) + (1-Y[test_set])*log(1-Qstar[test_set,"QAW"]))
             }
+            # calc_varIC uses the g1W=Tx$g1W[test_set]
             temp 	 <- calc_varIC(Y[test_set], Q=Qstar[test_set,], h=Tx$h[test_set,"hAW"], A=X[test_set,1],
                                  W=X[test_set, which.cols(colnames(X), Aform)], g1W=Tx$g1W[test_set], ICg=TRUE)
             varDstar[i] <- temp[1]
@@ -570,7 +571,7 @@ cv <- function(Y,X, Q, family, Qbounds, ab, ncandidates, like_type,
                               } else {
                                     likelihood.temp[[v]][j] <- -sum(Y[test_set]*log(Qstar[test_set,"QAW"]) + (1-Y[test_set])*log(1-Qstar[test_set,"QAW"]))
                               }
-
+                              # !!! temp uses g1W=Tx$g1W[test_set] as g
                               temp 	 <- calc_varIC(Y[test_set], Q=Qstar[test_set,], h=Tx$h[test_set,"hAW"], A=X[test_set,1],
                                                    W=X[test_set, which.cols(colnames(X), Aform[[v]])], g1W=Tx$g1W[test_set], ICg=TRUE)
 

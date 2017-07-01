@@ -122,10 +122,10 @@ Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 20)
 ```
 
-We suggest start build a sequence of lambdas from the lambda selected by cross-validation, as the model selected by cv.glmnet would over-smooth w.r.t. the target parameter.
+We start build a sequence of lambdas from the lambda selected by cross-validation, as the model selected by cv.glmnet would over-smooth w.r.t. the target parameter.
 
 ```{r}
-lambdas <-glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
+lambdas <- glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
 ```
 
 We fit C-TMLE1 algorithm by feed the algorithm with a vector of lambda, in decreasing order:
@@ -282,16 +282,17 @@ ctmle_general_fit1
 
 If you used `ctmle` package in your research, please cite:
 
->Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation
+>Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation.
 
 ## References
 
 ### C-TMLE LASSO and C-TMLE for Model Selection
 
-TBD
+>Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
+
 
 #### Scalable Discrete C-TMLE with Pre-ordering
->Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J., "Scalable Collaborative Targeted Learning for High-dimensional Data" (June 2016). U.C. Berkeley Division of Biostatistics Working Paper Series. Working Paper 352. http://biostats.bepress.com/ucbbiostat/paper352
+>Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J.. "Scalable Collaborative Targeted Learning for High-dimensional Data", arXiv preprint arXiv:1703.02237 (2017).
 
 #### Discrete C-TMLE with Greedy Search
 >Susan, Gruber, and van der Laan, Mark J.. "An Application of Collaborative Targeted Maximum Likelihood Estimation in Causal Inference and Genomics." The International Journal of Biostatistics 6.1 (2010): 1-31.

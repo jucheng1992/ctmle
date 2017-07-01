@@ -27,6 +27,8 @@ For example, the (i,j)-th element is the predicted propensity score by j-th esti
 for i-th observation, when it is in the validation set
 
 folds The list of indices for the ctmle cross-validation step
+
+details The SuperLearner object used to generate gn_candidates_cv
 }
 \description{
 This function helps building gn candidates for ctmleGeneral. It returns gn_candidates_cv,

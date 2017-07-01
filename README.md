@@ -42,7 +42,7 @@ library(ctmle)
 #> Loading required package: glmnet
 #> Loading required package: Matrix
 #> Loading required package: foreach
-#> Loaded glmnet 2.0-5
+#> Loaded glmnet 2.0-9
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -92,10 +92,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.618   0.029   1.651
+#>   1.580   0.046   1.626
 time_preorder
 #>    user  system elapsed 
-#>   0.872   0.022   0.896
+#>   0.821   0.045   0.866
 ```
 
 Show the brief results from greedy CTMLE:
@@ -186,10 +186,10 @@ Q <- cbind(rep(mean(Y[A == 0]), N), rep(mean(Y[A == 1]), N))
 glmnet_fit <- cv.glmnet(y = A, x = W, family = 'binomial', nlambda = 20)
 ```
 
-We suggest start build a sequence of lambdas from the lambda selected by cross-validation, as the model selected by cv.glmnet would over-smooth w.r.t. the target parameter.
+We start build a sequence of lambdas from the lambda selected by cross-validation, as the model selected by cv.glmnet would over-smooth w.r.t. the target parameter.
 
 ``` r
-lambdas <-glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
+lambdas <- glmnet_fit$lambda[(which(glmnet_fit$lambda==glmnet_fit$lambda.min)):length(glmnet_fit$lambda)]
 ```
 
 We fit C-TMLE1 algorithm by feed the algorithm with a vector of lambda, in decreasing order:
@@ -237,13 +237,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.157   0.065  15.270
+#>  15.299   0.043  15.374
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.770   0.085  18.912
+#>  18.951   0.064  19.069
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.005   0.000   0.005
+#>   0.006   0.000   0.005
 ```
 
 Finally, we compared three C-TMLE estimates:
@@ -345,6 +345,42 @@ Use `folds` and SuperLearner template to compute `gn_candidates` and `gn_candida
 
 ``` r
 gn_seq <- build_gn_seq(A = A, W = W, SL.library = SL.library, folds = folds)
+#> Number of covariates in All is: 100
+#> CV SL.cv1lasso_All
+#> CV SL.cv2lasso_All
+#> CV SL.cv3lasso_All
+#> CV SL.cv4lasso_All
+#> CV SL.glm_All
+#> Number of covariates in All is: 100
+#> CV SL.cv1lasso_All
+#> CV SL.cv2lasso_All
+#> CV SL.cv3lasso_All
+#> CV SL.cv4lasso_All
+#> CV SL.glm_All
+#> Number of covariates in All is: 100
+#> CV SL.cv1lasso_All
+#> CV SL.cv2lasso_All
+#> CV SL.cv3lasso_All
+#> CV SL.cv4lasso_All
+#> CV SL.glm_All
+#> Number of covariates in All is: 100
+#> CV SL.cv1lasso_All
+#> CV SL.cv2lasso_All
+#> CV SL.cv3lasso_All
+#> CV SL.cv4lasso_All
+#> CV SL.glm_All
+#> Number of covariates in All is: 100
+#> CV SL.cv1lasso_All
+#> CV SL.cv2lasso_All
+#> CV SL.cv3lasso_All
+#> CV SL.cv4lasso_All
+#> CV SL.glm_All
+#> Non-Negative least squares convergence:  TRUE
+#> full SL.cv1lasso_All
+#> full SL.cv2lasso_All
+#> full SL.cv3lasso_All
+#> full SL.cv4lasso_All
+#> full SL.glm_All
 ```
 
 Lets look at the output of `build_gn_seq`
@@ -371,10 +407,10 @@ ctmle_general_fit1 <- ctmleGeneral(Y = Y, A = A, W = W, Q = Q,
 
 ctmle_general_fit1
 #> C-TMLE result:
-#>  parameter estimate:  2.22783 
-#>  estimated variance:  0.10697 
-#>             p-value:  9.6451e-12 
-#>   95% conf interval: (1.58679, 2.86887)
+#>  parameter estimate:  2.19494 
+#>  estimated variance:  0.08348 
+#>             p-value:  3.0302e-14 
+#>   95% conf interval: (1.62865, 2.76122)
 ```
 
 Citation
@@ -382,18 +418,18 @@ Citation
 
 If you used `ctmle` package in your research, please cite:
 
-> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation
+> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation.
 
 References
 ----------
 
 ### C-TMLE LASSO and C-TMLE for Model Selection
 
-TBD
+> Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
 
 #### Scalable Discrete C-TMLE with Pre-ordering
 
-> Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J., "Scalable Collaborative Targeted Learning for High-dimensional Data" (June 2016). U.C. Berkeley Division of Biostatistics Working Paper Series. Working Paper 352. <http://biostats.bepress.com/ucbbiostat/paper352>
+> Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J.. "Scalable Collaborative Targeted Learning for High-dimensional Data", arXiv preprint arXiv:1703.02237 (2017).
 
 #### Discrete C-TMLE with Greedy Search
 

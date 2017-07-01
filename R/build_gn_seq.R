@@ -17,6 +17,7 @@
 #' For example, the (i,j)-th element is the predicted propensity score by j-th estimator,
 #' for i-th observation, when it is in the validation set
 #' @return folds The list of indices for the ctmle cross-validation step
+#' @return details The SuperLearner object used to generate gn_candidates_cv
 #' @examples
 #'N <- 1000
 #'p = 100
@@ -81,6 +82,6 @@ build_gn_seq <- function(A, W, SL.library, folds, verbose = TRUE){
                              SL.library = SL.library, family = 'binomial', verbose = verbose,
                              cvControl = list(V = length(folds), validRows = folds))
 
-      return(list(gn_candidates_cv = SL_fit$Z, gn_candidates = SL_fit$library.predict, folds = folds))
+      return(list(gn_candidates_cv = SL_fit$Z, gn_candidates = SL_fit$library.predict, folds = folds, details = SL_fit))
 
 }
