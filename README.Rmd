@@ -16,6 +16,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+# Collaborative Targeted Maximum Likelihood Estimation 
+
+In this package, we implemented the general template of Collaborative Targeted Maximum Likelihood Estimation (C-TMLE), for the estimation of the average treatment effect (ATE). 
+
+The package also offers convenient functions for discrete C-TMLE for variable selection, and LASSO-C-TMLE for model selection of LASSO, in estimation of the propensity score (PS).
+
 # Installation
 
 To install the CRAN release version of `ctmle`:
@@ -30,9 +37,6 @@ To install the development version (requires the devtools package):
 devtools::install_github('jucheng1992/ctmle')
 ```
 
-# Collaborative Targeted Maximum Likelihood Estimation 
-
-In this package, we implemented the general template of C-TMLE, for estimation of average additive treatment effect (ATE). The package also offers the functions for discrete C-TMLE, which could be used for variable selection, and C-TMLE for model selection of LASSO.
 
 ## C-TMLE for variable selection
 
