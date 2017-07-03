@@ -30,7 +30,7 @@ devtools::install_github('jucheng1992/ctmle')
 C-TMLE for variable selection
 -----------------------------
 
-In this section, we start with examples of discrete C-TMLE for variable selection, using greedy forward searhcing, and scalable discrete C-TMLE with pre-ordering option.
+In this section, we start with examples of discrete C-TMLE for variable selection, using greedy forward searching, and scalable discrete C-TMLE with pre-ordering option.
 
 ``` r
 library(ctmle)
@@ -96,10 +96,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.668   0.044   1.712
+#>   1.679   0.049   1.772
 time_preorder
 #>    user  system elapsed 
-#>   0.954   0.009   0.963
+#>   1.029   0.013   1.044
 ```
 
 Show the brief results from greedy CTMLE:
@@ -241,13 +241,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  14.813   0.036  14.854
+#>  15.709   0.109  15.930
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  17.756   0.035  17.800
+#>  18.704   0.083  18.904
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.006   0.000   0.005
+#>   0.006   0.000   0.007
 ```
 
 Finally, we compare three C-TMLE estimates:
@@ -429,7 +429,7 @@ References
 
 ### LASSO-C-TMLE
 
-> Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
+> Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv: 1706.10029 (2017).
 
 #### Scalable Discrete C-TMLE with Pre-ordering
 

@@ -42,7 +42,7 @@ devtools::install_github('jucheng1992/ctmle')
 
 ## C-TMLE for variable selection
 
-In this section, we start with examples of discrete C-TMLE for variable selection, using greedy forward searhcing, and scalable discrete C-TMLE with pre-ordering option.
+In this section, we start with examples of discrete C-TMLE for variable selection, using greedy forward searching, and scalable discrete C-TMLE with pre-ordering option.
 
 
 ```{r,eval=TRUE}
@@ -295,7 +295,7 @@ If you used `ctmle` package in your research, please cite:
 
 ### LASSO-C-TMLE  
 
->Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv(2017).
+>Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv: 1706.10029 (2017).
 
 
 #### Scalable Discrete C-TMLE with Pre-ordering
