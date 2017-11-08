@@ -46,7 +46,7 @@ library(ctmle)
 #> Loading required package: glmnet
 #> Loading required package: Matrix
 #> Loading required package: foreach
-#> Loaded glmnet 2.0-9
+#> Loaded glmnet 2.0-10
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -96,10 +96,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.679   0.049   1.772
+#>   1.594   0.038   1.633
 time_preorder
 #>    user  system elapsed 
-#>   1.029   0.013   1.044
+#>   0.832   0.037   0.869
 ```
 
 Show the brief results from greedy CTMLE:
@@ -241,13 +241,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.709   0.109  15.930
+#>  14.661   0.032  14.699
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.704   0.083  18.904
+#>  17.806   0.021  17.833
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.006   0.000   0.007
+#>   0.006   0.000   0.006
 ```
 
 Finally, we compare three C-TMLE estimates:
@@ -424,22 +424,26 @@ If you used `ctmle` package in your research, please cite:
 
 > Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation.
 
-References
-----------
+References (by inverse chronological order)
+-------------------------------------------
+
+### C-TMLE for Adaptive Propensity Score Truncation
+
+> Ju, Cheng, Schwab, Joshua, & van der Laan, Mark J. (2017). On Adaptive Propensity Score Truncation in Causal Inference. arXiv preprint arXiv:1707.05861 (2017).
 
 ### LASSO-C-TMLE
 
-> Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv: 1706.10029 (2017).
+> Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv: 1706.10029 (2017). (To appear in Statistical Methods in Medical Research)
 
-#### Scalable Discrete C-TMLE with Pre-ordering
+### Scalable Discrete C-TMLE with Pre-ordering
 
-> Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J.. "Scalable Collaborative Targeted Learning for High-dimensional Data", arXiv preprint arXiv:1703.02237 (2017).
+> Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J.. "Scalable Collaborative Targeted Learning for High-dimensional Data", Statistical Methods in Medical Research (2017), <https://doi.org/10.1177/0962280217729845>.
 
-#### Discrete C-TMLE with Greedy Search
+### Discrete C-TMLE with Greedy Search
 
-> Susan, Gruber, and van der Laan, Mark J.. "An Application of Collaborative Targeted Maximum Likelihood Estimation in Causal Inference and Genomics." The International Journal of Biostatistics 6.1 (2010): 1-31.
+> Susan, Gruber, and van rder Laan, Mark J.. "An Application of Collaborative Targeted Maximum Likelihood Estimation in Causal Inference and Genomics." The International Journal of Biostatistics 6.1 (2010): 1-31.
 
-#### General Template of C-TMLE
+### General Template of C-TMLE
 
 > van der Laan, Mark J., and Susan Gruber. "Collaborative double robust targeted maximum likelihood estimation." The international journal of biostatistics 6.1 (2010): 1-71.
 
