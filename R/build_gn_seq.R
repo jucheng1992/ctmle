@@ -11,6 +11,7 @@
 #' The theory of ctmle requires the estimators are ordered by the model complexity,
 #' with the last one be a consistent estimator.
 #' @param folds The list of indices for the ctmle cross-validation step
+#' @param verbose A boolean. If print out the training log for Super Learne
 #' @return gn_candidates_cv matrix or dataframe, each column stand for a estimate of
 #' propensity score. Estimate in the column with larger index should have smaller empirical loss
 #' @return gn_candidates matrix or dataframe, each column stand for a the cross-validated estimate.

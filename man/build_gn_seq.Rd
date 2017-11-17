@@ -17,6 +17,8 @@ The theory of ctmle requires the estimators are ordered by the model complexity,
 with the last one be a consistent estimator.}
 
 \item{folds}{The list of indices for the ctmle cross-validation step}
+
+\item{verbose}{A boolean. If print out the training log for Super Learne}
 }
 \value{
 gn_candidates_cv matrix or dataframe, each column stand for a estimate of

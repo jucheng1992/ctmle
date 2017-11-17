@@ -41,6 +41,7 @@
 #' @return penlikelihood.cv penalized cross-validated likelihood
 #' @return cv.res all cross-validation results for each fold
 #' @examples
+#' \dontrun{
 #'N <- 1000
 #'p = 10
 #'Wmat <- matrix(rnorm(N * p), ncol = p)
@@ -80,6 +81,7 @@
 #'# Compare the running time
 #'time_greedy
 #'time_preorder
+#'}
 ctmleDiscrete <- function(Y, A, W, Wg=W, Q=NULL,
                   preOrder=FALSE, order = NULL, patience=FALSE,
                   Qbounds=NULL, cvQinit=FALSE, Qform=NULL, SL.library=NULL,

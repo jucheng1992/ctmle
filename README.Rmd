@@ -2,9 +2,10 @@
 output: github_document
 ---
 
-<!--
-[![](http://cranlogs.r-pkg.org/badges/simcausal)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/grand-total/simcausal)](https://CRAN.R-project.org/package=ctmle)
---> 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tmlenet)](http://cran.r-project.org/package=ctmle)
+[![](http://cranlogs.r-pkg.org/badges/ctmle)](http://cran.rstudio.com/web/packages/ctmle/index.html)
+
+
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 

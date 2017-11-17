@@ -1,3 +1,5 @@
+set.seed(123)
+
 N <- 1000
 p = 10
 Wmat <- matrix(rnorm(N * p), ncol = p)
@@ -21,7 +23,7 @@ Y  <- beta0 + tau * A + epsilon
 #----------------------Test for glmnet CTMLE---------------------
 #----------------------------------------------------------------
 
-# cgmleGlmnet must provide user-specified Q
+# ctmleGlmnet must provide user-specified Q
 W_tmp <- data.frame(Wm[,1:3])
 treated<- W_tmp[which(A==1),]
 untreated<-W_tmp[which(A==0),]

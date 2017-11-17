@@ -1,5 +1,5 @@
 N <- 1000
-p = 100
+p = 3
 V = 5
 Wmat <- matrix(rnorm(N * p), ncol = p)
 gcoef <- matrix(c(-1,-1,rep(-(3/((p)-2)),(p)-2)),ncol=1)

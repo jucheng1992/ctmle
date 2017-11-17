@@ -17,3 +17,7 @@ x truncated input x by min/max in bounds
 \description{
 set outliers to min/max allowable values. It assumes x contains only numerical data
 }
+\examples{
+x <- rnorm(1000)
+x <- bound(x, c(-1, 1))
+}

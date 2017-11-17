@@ -81,3 +81,47 @@ cv.res all cross-validation results for each fold
 \description{
 This function computes the Collaborative Maximum Likelihood Estimation for hyper-parameter tuning of LASSO.
 }
+\examples{
+\dontrun{
+set.seed(123)
+N <- 1000
+p = 10
+Wmat <- matrix(rnorm(N * p), ncol = p)
+beta1 <- 4+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
+beta0 <- 2+2*Wmat[,1]+2*Wmat[,2]+2*Wmat[,5]+2*Wmat[,6]+2*Wmat[,8]
+tau <- 2
+gcoef <- matrix(c(-1,-1,rep(0,(p)-2)),ncol=1)
+Wm <- as.matrix(Wmat)
+g <- 1/(1+exp(Wm\%*\%gcoef / 3))
+A <- rbinom(N, 1, prob = g)
+sigma <- 1
+epsilon <-rnorm(N,0,sigma)
+Y  <- beta0 + tau * A + epsilon
+# ctmleGlmnet must provide user-specified Q
+W_tmp <- data.frame(Wm[,1:3])
+treated<- W_tmp[which(A==1),]
+untreated<-W_tmp[which(A==0),]
+Y1<-Y[which(A==1)]
+Y0<-Y[which(A==0)]
+# Initial Q-estimate
+beta1hat <- predict(lm(Y1~.,data=treated),newdata=W_tmp)
+beta0hat <- predict(lm(Y0~., data=untreated),newdata=W_tmp)
+Q <- matrix(c(beta0hat,beta1hat),ncol=2)
+W = Wm
+glmnet_fit <- cv.glmnet(y = A, x = Wm,
+                       family = 'binomial', nlambda = 40)
+start = which(glmnet_fit$lambda==glmnet_fit$lambda.min))
+end = length(glmnet_fit$lambda)
+lambdas <-glmnet_fit$lambda[start:end]
+ctmle_fit1 <- ctmleGlmnet(Y=Y, A=A,
+                         W=data.frame(W=W),
+                         Q = Q, lambdas = lambdas,
+                         ctmletype=1, alpha=.995,
+                         family="gaussian",
+                         gbound=0.025,like_type="loglik" ,
+                         fluctuation="logistic",
+                         verbose=FALSE,
+                         detailed=FALSE, PEN=FALSE,
+                         V=5, stopFactor=10^6)
+}
+}

@@ -1,7 +1,6 @@
 
-<!--
-[![](http://cranlogs.r-pkg.org/badges/simcausal)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/grand-total/simcausal)](https://CRAN.R-project.org/package=ctmle)
--->
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tmlenet)](http://cran.r-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/ctmle)](http://cran.rstudio.com/web/packages/ctmle/index.html)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Collaborative Targeted Maximum Likelihood Estimation
 ====================================================
@@ -37,8 +36,8 @@ library(ctmle)
 #> Loading required package: SuperLearner
 #> Loading required package: nnls
 #> Super Learner
-#> Version: 2.0-21
-#> Package created on 2016-11-11
+#> Version: 2.0-22
+#> Package created on 2017-07-18
 #> Loading required package: tmle
 #> Welcome to the tmle package, version 1.2.0-5
 #> 
@@ -96,10 +95,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.594   0.038   1.633
+#>   1.680   0.033   1.714
 time_preorder
 #>    user  system elapsed 
-#>   0.832   0.037   0.869
+#>   0.834   0.016   0.850
 ```
 
 Show the brief results from greedy CTMLE:
@@ -241,10 +240,10 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  14.661   0.032  14.699
+#>  15.013   0.033  15.068
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  17.806   0.021  17.833
+#>  18.029   0.033  18.072
 time_ctmlelasso3
 #>    user  system elapsed 
 #>   0.006   0.000   0.006
@@ -379,7 +378,7 @@ gn_seq <- build_gn_seq(A = A, W = W, SL.library = SL.library, folds = folds)
 #> CV SL.cv3lasso_All
 #> CV SL.cv4lasso_All
 #> CV SL.glm_All
-#> Non-Negative least squares convergence:  TRUE
+#> Non-Negative least squares convergence: TRUE
 #> full SL.cv1lasso_All
 #> full SL.cv2lasso_All
 #> full SL.cv3lasso_All

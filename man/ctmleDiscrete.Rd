@@ -88,6 +88,7 @@ It includes the greedy C-TMLE algorithm (Gruber and van der Laan 2010), and scal
 (Ju, Gruber, and Lendle et al. 2016) with a user-specified order.
 }
 \examples{
+\dontrun{
 N <- 1000
 p = 10
 Wmat <- matrix(rnorm(N * p), ncol = p)
@@ -127,4 +128,5 @@ ctmle_discrete_fit3 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat), Q = Q,
 # Compare the running time
 time_greedy
 time_preorder
+}
 }
