@@ -289,7 +289,17 @@ ctmle_general_fit1
 
 If you used `ctmle` package in your research, please cite:
 
->Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation.
+>Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Collaborative Targeted Maximum Likelihood Estimation. R package version 0.1.1, https://CRAN.R-project.org/package=ctmle.
+
+```{bibtex,eval = FALSE}
+@Manual{,
+    title = {ctmle: Collaborative Targeted Maximum Likelihood Estimation},
+    author = {Cheng Ju and Susan Gruber and Mark van der Laan},
+    year = {2017},
+    note = {R package version 0.1.1},
+    url = {https://CRAN.R-project.org/package=ctmle},
+}
+```
 
 ## References (by inverse chronological order)
 

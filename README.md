@@ -95,10 +95,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.680   0.033   1.714
+#>   1.654   0.029   1.691
 time_preorder
 #>    user  system elapsed 
-#>   0.834   0.016   0.850
+#>   0.991   0.009   1.001
 ```
 
 Show the brief results from greedy CTMLE:
@@ -240,13 +240,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.013   0.033  15.068
+#>  15.520   0.070  15.695
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.029   0.033  18.072
+#>  18.361   0.064  18.466
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.006   0.000   0.006
+#>   0.005   0.000   0.005
 ```
 
 Finally, we compare three C-TMLE estimates:
@@ -421,7 +421,17 @@ Citation
 
 If you used `ctmle` package in your research, please cite:
 
-> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Variable and Model Selection for Causal Inference with Collaborative Targeted Maximum Likelihood Estimation.
+> Ju, Cheng; Susan, Gruber; van der Laan, Mark J.; ctmle: Collaborative Targeted Maximum Likelihood Estimation. R package version 0.1.1, <https://CRAN.R-project.org/package=ctmle>.
+
+``` bibtex
+@Manual{,
+    title = {ctmle: Collaborative Targeted Maximum Likelihood Estimation},
+    author = {Cheng Ju and Susan Gruber and Mark van der Laan},
+    year = {2017},
+    note = {R package version 0.1.1},
+    url = {https://CRAN.R-project.org/package=ctmle},
+}
+```
 
 References (by inverse chronological order)
 -------------------------------------------
