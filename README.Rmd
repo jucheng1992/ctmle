@@ -2,8 +2,9 @@
 output: github_document
 ---
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tmlenet)](http://cran.r-project.org/package=ctmle)
-[![](http://cranlogs.r-pkg.org/badges/ctmle)](http://cran.rstudio.com/web/packages/ctmle/index.html)
+
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ctmle)](https://CRAN.R-project.org/package=ctmle)
+[![](http://cranlogs.r-pkg.org/badges/ctmle)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/grand-total/ctmle)](https://CRAN.R-project.org/package=ctmle)
 
 
 

@@ -1,5 +1,5 @@
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tmlenet)](http://cran.r-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/ctmle)](http://cran.rstudio.com/web/packages/ctmle/index.html)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ctmle)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/ctmle)](https://CRAN.R-project.org/package=ctmle) [![](http://cranlogs.r-pkg.org/badges/grand-total/ctmle)](https://CRAN.R-project.org/package=ctmle)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Collaborative Targeted Maximum Likelihood Estimation
@@ -95,10 +95,10 @@ Scalable (discrete) C-TMLE takes much less computation time:
 ``` r
 time_greedy
 #>    user  system elapsed 
-#>   1.654   0.029   1.691
+#>   1.589   0.045   1.646
 time_preorder
 #>    user  system elapsed 
-#>   0.991   0.009   1.001
+#>   0.994   0.012   1.008
 ```
 
 Show the brief results from greedy CTMLE:
@@ -240,13 +240,13 @@ Les't compare the running time for each LASSO-C-TMLE
 ``` r
 time_ctmlelasso1
 #>    user  system elapsed 
-#>  15.520   0.070  15.695
+#>  15.005   0.104  15.266
 time_ctmlelasso2
 #>    user  system elapsed 
-#>  18.361   0.064  18.466
+#>  18.351   0.083  18.528
 time_ctmlelasso3
 #>    user  system elapsed 
-#>   0.005   0.000   0.005
+#>   0.005   0.000   0.006
 ```
 
 Finally, we compare three C-TMLE estimates:
