@@ -144,11 +144,11 @@ time_ctmlelasso2 <- system.time(
 
 For C-TMLE3, we need two gn estimators, one with lambda selected by cross-validation, and the other with lambda slightly different from the selected lambda:
 ```{r}
-gcv <- stats:predict(glmnet_fit, newx=W, s="lambda.min",type="response")
+gcv <- stats::predict(glmnet_fit, newx=W, s="lambda.min",type="response")
 gcv <- bound(gcv,c(0.025,0.975))
 
 s_prev <- glmnet_fit$lambda[(which(glmnet_fit$lambda == glmnet_fit$lambda.min))] * (1+5e-2)
-gcvPrev <- stats:predict(glmnet_fit,newx = W,s = s_prev,type="response")
+gcvPrev <- stats::predict(glmnet_fit,newx = W,s = s_prev,type="response")
 gcvPrev <- bound(gcvPrev,c(0.025,0.975))
 
 time_ctmlelasso3 <- system.time(
@@ -281,10 +281,10 @@ If you used `ctmle` package in your research, please cite:
 
 ### C-TMLE LASSO and C-TMLE for Model Selection
 
-TBD
+> Ju, Cheng; Benkeser, David; van der Laan, Mark; "Robust inference on the average treatment effect using the outcome highly adaptive lasso", Biometrics, https://doi.org/10.1111/biom.13121
 
 #### Scalable Discrete C-TMLE with Pre-ordering
->Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J., "Scalable Collaborative Targeted Learning for High-dimensional Data" (June 2016). U.C. Berkeley Division of Biostatistics Working Paper Series. Working Paper 352. http://biostats.bepress.com/ucbbiostat/paper352
+>Ju, Cheng; Gruber, Susan; Lendle. S. D.; et al. Scalable collaborative targeted learning for high-dimensional data. Statistical methods in medical research, 2019, 28(2): 532-554.
 
 #### Discrete C-TMLE with Greedy Search
 >Susan, Gruber, and van der Laan, Mark J.. "An Application of Collaborative Targeted Maximum Likelihood Estimation in Causal Inference and Genomics." The International Journal of Biostatistics 6.1 (2010): 1-31.
