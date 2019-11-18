@@ -281,7 +281,7 @@ If you used `ctmle` package in your research, please cite:
 
 ### C-TMLE LASSO and C-TMLE for Model Selection
 
-> Ju, Cheng; Benkeser, David; van der Laan, Mark; "Robust inference on the average treatment effect using the outcome highly adaptive lasso", Biometrics, https://doi.org/10.1111/biom.13121
+>Ju, Cheng; Benkeser, David; van der Laan, Mark; "Robust inference on the average treatment effect using the outcome highly adaptive lasso", Biometrics, https://doi.org/10.1111/biom.13121
 
 #### Scalable Discrete C-TMLE with Pre-ordering
 >Ju, Cheng; Gruber, Susan; Lendle. S. D.; et al. Scalable collaborative targeted learning for high-dimensional data. Statistical methods in medical research, 2019, 28(2): 532-554.
