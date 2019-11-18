@@ -66,11 +66,11 @@ ctmle_fit2 <- ctmleGlmnet(Y=Y, A=A,
                           V=5, stopFactor=10^6)
 
 
-gcv <- predict.cv.glmnet(glmnet_fit, newx=Wm, s="lambda.min",type="response")
+gcv <- stats:predict(glmnet_fit, newx=Wm, s="lambda.min",type="response")
 gcv <- bound(gcv,c(0.025,0.975))
 
 s_prev <- glmnet_fit$lambda[(1:which(glmnet_fit$lambda == glmnet_fit$lambda.min))]
-gcvPrev <- predict.cv.glmnet(glmnet_fit,newx=Wm,s=s_prev[length(s_prev)],type="response")
+gcvPrev <- stats:predict(glmnet_fit,newx=Wm,s=s_prev[length(s_prev)],type="response")
 gcvPrev <- bound(gcvPrev,c(0.025,0.975))
 
 

@@ -70,11 +70,11 @@ expect_warning(
 )
 
 
-gcv <- predict.cv.glmnet(glmnet_fit, newx=W, s="lambda.min",type="response")
+gcv <- stats::predict(glmnet_fit, newx=W, s="lambda.min",type="response")
 gcv <- bound(gcv,c(0.025,0.975))
 
 s_prev <- glmnet_fit$lambda[(1:which(glmnet_fit$lambda == glmnet_fit$lambda.min))]
-gcvPrev <- predict.cv.glmnet(glmnet_fit,newx=W,s=s_prev[length(s_prev)],type="response")
+gcvPrev <- stats::predict(glmnet_fit,newx=W,s=s_prev[length(s_prev)],type="response")
 gcvPrev <- bound(gcvPrev,c(0.025,0.975))
 
 tlme_fit <- tmle::tmle(Y = Y, A = A, W = W, Q = Q, g1W = gcv)

@@ -144,11 +144,11 @@ time_ctmlelasso2 <- system.time(
 
 For C-TMLE3, we need two gn estimators, one with lambda selected by cross-validation, and the other with lambda slightly different from the selected lambda:
 ```{r}
-gcv <- predict.cv.glmnet(glmnet_fit, newx=W, s="lambda.min",type="response")
+gcv <- stats:predict(glmnet_fit, newx=W, s="lambda.min",type="response")
 gcv <- bound(gcv,c(0.025,0.975))
 
 s_prev <- glmnet_fit$lambda[(which(glmnet_fit$lambda == glmnet_fit$lambda.min))] * (1+5e-2)
-gcvPrev <- predict.cv.glmnet(glmnet_fit,newx = W,s = s_prev,type="response")
+gcvPrev <- stats:predict(glmnet_fit,newx = W,s = s_prev,type="response")
 gcvPrev <- bound(gcvPrev,c(0.025,0.975))
 
 time_ctmlelasso3 <- system.time(
