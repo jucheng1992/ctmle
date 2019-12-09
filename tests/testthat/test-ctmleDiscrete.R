@@ -58,8 +58,7 @@ ctmle_discrete_fit5 <- ctmleDiscrete(Y = Y, A = A, W = data.frame(Wmat),Q = Q,
 # Actually used same order and cv-folds, should have same estimate
 expect_equal(ctmle_discrete_fit4$est, ctmle_discrete_fit5$est)
 expect_that(ctmle_discrete_fit4, is_a("ctmle"))
-# Greedy takes longer time
-expect_true(time_greedy[3] > time_preorder[3])
+
 
 
 
