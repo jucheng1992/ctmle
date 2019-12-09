@@ -306,14 +306,14 @@ If you used `ctmle` package in your research, please cite:
 
 ### C-TMLE for Adaptive Propensity Score Truncation
 
->Ju, Cheng, Schwab, Joshua, & van der Laan, Mark J. (2017). On Adaptive Propensity Score Truncation in Causal Inference. arXiv preprint arXiv:1707.05861 (2017).
+>Ju, Cheng, Joshua Schwab, and Mark J. van der Laan. "On adaptive propensity score truncation in causal inference." Statistical methods in medical research 28.6 (2019): 1741-1760.
 
 ### LASSO-C-TMLE  
 
->Ju, Cheng; Wyss, Richard; Franklin, Jessica M.; Schneeweiss, Sebastian; Häggström, Jenny; van der Laan, Mark J.. "Collaborative-controlled LASSO for Constructing Propensity Score-based Estimators in High-Dimensional Data", arXiv preprint arXiv: 1706.10029 (2017). (To appear in Statistical Methods in Medical Research)
+>Ju, Cheng, et al. "Collaborative-controlled LASSO for constructing propensity score-based estimators in high-dimensional data." Statistical methods in medical research 28.4 (2019): 1044-1063.
 
 ### Scalable Discrete C-TMLE with Pre-ordering
->Ju, Cheng; Gruber, Susan; Lendle, Samuel D.; Chambaz, Antoine; Franklin, Jessica M.; Wyss, Richard; Schneeweiss, Sebastian; and van der Laan, Mark J.. "Scalable Collaborative Targeted Learning for High-dimensional Data", Statistical Methods in Medical Research (2017), https://doi.org/10.1177/0962280217729845.
+>Ju, Cheng, et al. "Scalable collaborative targeted learning for high-dimensional data." Statistical methods in medical research 28.2 (2019): 532-554.
 
 ### Discrete C-TMLE with Greedy Search
 >Susan, Gruber, and van rder Laan, Mark J.. "An Application of Collaborative Targeted Maximum Likelihood Estimation in Causal Inference and Genomics." The International Journal of Biostatistics 6.1 (2010): 1-31.
