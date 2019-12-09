@@ -166,6 +166,8 @@ evaluate_candidates_general <- function(Y,X,Q,
       nextbest_gn <- best_gns[,j]
 
       est <- likelihood <- varIC <- varDstar <-rep(Inf, n_candidates)
+      
+      Qstars <- list()
 
       if(ctmletype==1){ epsilon<-matrix(rep(Inf,n_candidates*2),ncol=2) }
 
@@ -178,7 +180,6 @@ evaluate_candidates_general <- function(Y,X,Q,
 
             H1W <- X[,1]/g1W.total
             H0W <- (1 - X[,1])/g0W.total
-
             if(ctmletype==1){
                   suppressWarnings(epsilon[i,]<- coef(glm(Y ~ -1 + offset(Q[, "QAW"]) + H0W+ H1W, family = family)))
                   Qstar <- Q + c((epsilon[i,1] * H0W + epsilon[i,2] * H1W), epsilon[i,1]/g0W.total, epsilon[i,2]/g1W.total)
@@ -197,6 +198,8 @@ evaluate_candidates_general <- function(Y,X,Q,
             temp 	 <- calc_varIC(Y[test_set], Q=Qstar[test_set,],  A=X[test_set,1], W=X[test_set, 2], g1W=g1W.total[test_set], ICg=TRUE)
             varDstar[i] <- temp[1]
             varIC[i]    <- temp[2]
+            Qstars[[i]] <- Qstar
+            
             if(is.nan(est[i])|is.infinite(est[i])){est[i] <- NA}
             if(is.nan(likelihood[i])|is.infinite(likelihood[i])){likelihood[i] <- NA}
             if(is.nan(varIC[i])|is.infinite(varIC[i])){varIC[i] <- NA}
@@ -225,7 +228,7 @@ evaluate_candidates_general <- function(Y,X,Q,
                   }
             }
       }
-      return(list(est=est, likelihood=likelihood, varDstar=varDstar, varIC=varIC))
+      return(list(est=est, likelihood=likelihood, varDstar=varDstar, varIC=varIC, Qstars = Qstars))
 }
 
 

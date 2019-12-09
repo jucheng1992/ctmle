@@ -48,7 +48,7 @@
 #' @return varDstar empirical variance of the influence curve
 #' @return var.psi variance of the estimate
 #' @return varIC.cv cross-validated variance of the influence curve
-#' @return penlikelihood.cv penalized cross-validatedlikelihood
+#' @return penlikelihood.cv penalized cross-validated likelihood
 #' @return cv.res all cross-validation results for each fold
 #' @examples
 #'N <- 1000
@@ -130,7 +130,7 @@ ctmleGeneral <- function(Y, A, W, Wg = W, Q,
                          gn_candidates,
                          gn_candidates_cv = NULL,
                          alpha=.995, family= "gaussian",
-                         gbound=.025,like_type = "RSS",
+                         gbound=.025, like_type = "RSS",
                          fluctuation="logistic", verbose=FALSE,
                          detailed=FALSE, PEN=FALSE,
                          g1W = NULL, g1WPrev = NULL,
